@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { uzLanguege } from "./componenet/redux/Actions/uzLanguege";
+import { ruLanguege } from "./componenet/redux/Actions/ruLanguege";
+import { enLanguege } from "./componenet/redux/Actions/enLanguege";
+import { GetValue } from "./componenet/config/localstorage";
+import Navbar1 from './componenet/js/Navbar1';
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+ 
+  componentDidMount() {
+    if (GetValue("project1", "uz")) {
+      this.props.uzLanguege();
+    } else if (GetValue("project1", "en")) {
+      this.props.enLanguege();
+    } else {
+      this.props.ruLanguege();
+    }
+  }
+   render() {
+    return ( <div>
+          <div >
+        <Navbar1 />
+
+        <div className="arrowTop">
+          <a href="/#">
+            <div className="tops" id="2">
+              <i className="fa fa-arrow-up"></i>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div> );
+  }
 }
-
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    uzLang: state.changeLang.uzLang,
+    enLang: state.changeLang.enLang,
+  };
+};
+export default connect(mapStateToProps, { uzLanguege, ruLanguege, enLanguege })(
+  App
+);

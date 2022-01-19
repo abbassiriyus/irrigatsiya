@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap');
+
+
+#elons{
+    color: red;
+    /* padding-top: 0px; */
+    font-size: 28px;
+    font-family: 'DM Sans', sans-serif !important;
+
+}
+#elonScrol{
+    height: 100vh;
+    overflow-y: scroll;
+}
+.card, .card-body, .card-title{
+    background-color: transparent;
+}
+#elonScrol h4{
+    text-align: center;
+}
+#elonScrol p{
+    text-align: justify;
+}

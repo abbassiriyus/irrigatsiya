@@ -1,0 +1,11 @@
+.mediasi{
+    height: 400px;
+}
+.carousel1{
+    overflow: hidden;
+}
+@media(max-width:991px){
+    .mediasi{
+        height: 300px;
+    }
+}
