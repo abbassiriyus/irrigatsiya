@@ -28,7 +28,8 @@ class Navbar1 extends Component {
     articles:[],
     projects:[],
     presentations:[],
-    key:0
+    key:0,
+    comment:''
   };
 
   star1 = () => {
@@ -106,6 +107,17 @@ class Navbar1 extends Component {
       console.log(this.state.malumot)
     });
   };
+  onchangeM=()=>{
+    this.setState({comment:document.querySelector('#exampleFormControlTextarea1').value})
+    console.log(this.state.comment)
+  }
+  putIzoh=()=>{
+    const manba={
+      rate:this.state.state,
+      comment:this.state.comment
+    }
+    axios.post(`https://admin.credence.uz/uz/comments/`,{manba}).then(res=>{console.log("ishladi")}).catch(res=>{console.log("error")})
+  }
   componentDidMount() {
     this.getFan();
   }
@@ -306,7 +318,7 @@ class Navbar1 extends Component {
               element={
                 <div>
                   <div className="mt-5 mb-5 fan1">
-                    <h1 className={style1.text}> Fan </h1>
+                    <h1 className={style1.text}> Fanlar bo`yicha</h1>
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8">
@@ -522,6 +534,7 @@ class Navbar1 extends Component {
                                 Example textarea
                               </label>
                               <textarea
+                               onChange={this.onchangeM}
                                 className="form-control"
                                 id="exampleFormControlTextarea1"
                                 rows="3"
@@ -536,7 +549,7 @@ class Navbar1 extends Component {
                             >
                               Close
                             </button>
-                            <button type="button" className="btn btn-primary">
+                            <button type="button"  onClick={this.putIzoh} className="btn btn-primary">
                               Save changes
                             </button>
                           </div>
