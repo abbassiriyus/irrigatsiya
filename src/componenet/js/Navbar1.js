@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route, BrowserRouter, Routes } from "react-router-dom";
+import { Link, Route, BrowserRouter, Routes, Navigate } from "react-router-dom";
 import { uzLanguege } from "../redux/Actions/uzLanguege";
 import { enLanguege } from "../redux/Actions/enLanguege";
 import { ruLanguege } from "../redux/Actions/ruLanguege";
@@ -355,6 +355,10 @@ class Navbar1 extends Component {
 
           <Routes>
             <Route exact path="/" element={<Section />} />
+            <Route
+        path="*"
+        element={<Navigate to="/" />}
+    />
             <Route path="/Maqolalar" element={<Maqolalar />} />
             <Route path="/Kitoblar" element={<Kitoblar />} />
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
