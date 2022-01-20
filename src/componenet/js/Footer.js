@@ -6,6 +6,7 @@ import AOS from 'aos'
 import {uzLanguege} from '../redux/Actions/uzLanguege';
 import {ruLanguege} from '../redux/Actions/ruLanguege';
 import {enLanguege} from '../redux/Actions/enLanguege';
+
   AOS.init();
 class Footer extends Component {
   state={
@@ -81,7 +82,7 @@ class Footer extends Component {
                 <h6>{uzLang?"BOG`LANISH":enLang?"OUR CONTACTS":"КОНТАКТЫ"}</h6>
                 <div className="bottom"></div>
                 <p className="mt-5 ">
-                  <i className="fas fa-map-marker-alt myicon"></i> 
+                  <i className="fas  fa-map-marker-alt myicon"></i> 
                  <a href={maps.link} className='maps' target="_blank"> {maps.name}</a>
                 </p>
                 <p className="d-flex align-items-center">
@@ -118,10 +119,12 @@ class Footer extends Component {
                 <p>
                   {" "}
                   <a href="https://t.me/ilovetiiame">
-                    <i className="fa fa-telegram "></i>
+                    <i className="fab fa-telegram "></i>
+                   
                   </a>
                   <a href="https://www.facebook.com/tiiame.uz/">
-                    <i className="fa fa-facebook-f"></i>
+                    <i className="fab fa-facebook"></i>
+                    
                   </a>
                 </p>
               </div>

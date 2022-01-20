@@ -58,6 +58,7 @@ class Section extends Component {
         alert("Xato");
       });
   };
+  
   render() {
     const { userdata, profiledata } = this.state;
     const {uzLang, enLang} = this.props

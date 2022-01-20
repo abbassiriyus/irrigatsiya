@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import React from "react";
 import { rootReduser } from "./componenet/redux/Redusers/RootRedusers";
 import App from "./App";
+import './FA/css/all.min.css'
 
 const commonStore = createStore(
   rootReduser,
