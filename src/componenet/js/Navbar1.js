@@ -505,6 +505,7 @@ class Navbar1 extends Component {
                                {this.state.natija>=4? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
                                {this.state.natija==4.6? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}  <p style={{marginLeft:'30px',fontSize:'20px'}}>{this.state.natija}</p></div></h5>
                 <p>rahmat domla borizga shukur yaxshiyam siz borsiz </p>
+                <p style={{position:'absolute',bottom:'10px',right:'30px'}}>12-12-1998</p>
               </div>
               </div>
                     </div>
