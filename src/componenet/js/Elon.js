@@ -40,7 +40,7 @@ class Elon extends Component {
         return (        
 
             <>
-                  <div className="card p-2 elonScrol" id={style5.elonScrol}>  
+                  <div className="card p-2 elonScrol my-5" id={style5.elonScrol}>  
                     
                       
                     

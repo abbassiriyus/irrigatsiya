@@ -38,7 +38,8 @@ class AsisentPages extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <p id={style3.asisent} className="asisent my-3">{userdata.level}</p>
+              
+              <p id={style3.asisent} className="asisent my-3">  {userdata.level}</p>
               <Typed
               id={style3.typedtext}
                 className="typed-text text-center"

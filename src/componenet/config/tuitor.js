@@ -66,6 +66,14 @@ export let saveNumber = () => {
   };
   return HttpRequest(config);
 }
+export let saveFansn = (uz,en) => {
+  let config = {
+    url: uz?`${host}/subjects/`:en?`${hosten}/subjects/`:`${hostru}/subjects/`,
+    method: "GET",
+  };
+  return HttpRequest(config);
+}
+
 export let fotosLavha = () => {
   let config = {
     url: `${host}/fotos/`,
@@ -79,6 +87,15 @@ export let getPosts = (formDataObj) => {
       url: `${host}/me/contact/`,
       method: "POST",
       data: formDataObj
+    };
+    return HttpRequest(config);
+  };
+
+  export let getPostsComments = (commentsDataObj) => {
+    let config = {
+      url: `${host}/comments/`,
+      method: "POST",
+      data: commentsDataObj
     };
     return HttpRequest(config);
   };

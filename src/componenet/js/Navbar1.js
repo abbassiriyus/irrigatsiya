@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Route,BrowserRouter, Routes } from "react-router-dom";
+import { Link, Route, BrowserRouter, Routes } from "react-router-dom";
 import { uzLanguege } from "../redux/Actions/uzLanguege";
 import { enLanguege } from "../redux/Actions/enLanguege";
 import { ruLanguege } from "../redux/Actions/ruLanguege";
@@ -7,81 +7,79 @@ import { connect } from "react-redux";
 import { host } from "../config/host";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
-import style1 from "../css/Navbar1.module.css"
+import style1 from "../css/Navbar1.module.css";
 import Elon from "./Elon";
 import Footer from "./Footer";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import logo from '../img/logo.png'
-import Section from '../js/Section'
-import Kitoblar from '../js/Kitoblar'
+import "bootstrap/dist/css/bootstrap.min.css";
+import logo from "../img/logo.png";
+import Section from "../js/Section";
+import Kitoblar from "../js/Kitoblar";
 import Loyihalar from "./Loyihalar";
 import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
+import { Button, Form } from "react-bootstrap";
+import { getPostsComments, saveFansn } from "../config/tuitor";
 
 class Navbar1 extends Component {
   state = {
     data: [],
     malumot: {},
     star: 0,
-    books:[],
-    articles:[],
-    projects:[],
-    presentations:[],
-    key:0,
-    comment:'',
-    natija:4.4
+    books: [],
+    articles: [],
+    projects: [],
+    presentations: [],
+    key: 0,
+    comment: "",
+    natija: 4.4,
+    close: false,
   };
 
   star1 = () => {
     this.setState({ star: 1 });
-    console.log(this.state.star)
+    console.log(this.state.star);
     document.querySelector("#star1").style = "color:yellow";
     document.querySelector("#star2").style = "color:none";
     document.querySelector("#star3").style = "color:none";
     document.querySelector("#star4").style = "color:none";
     document.querySelector("#star5").style = "color:none";
-    
   };
   star2 = () => {
-    this.setState({ star: 2 }); 
-       console.log(this.state.star)
+    this.setState({ star: 2 });
+    console.log(this.state.star);
     document.querySelector("#star1").style = "color:yellow";
     document.querySelector("#star2").style = "color:yellow";
     document.querySelector("#star3").style = "color:none";
     document.querySelector("#star4").style = "color:none";
     document.querySelector("#star5").style = "color:none";
-
   };
   star3 = () => {
-    this.setState({ star: 3 }); 
-    console.log(this.state.star)
+    this.setState({ star: 3 });
+    console.log(this.state.star);
     document.querySelector("#star1").style = "color:yellow";
     document.querySelector("#star2").style = "color:yellow";
     document.querySelector("#star3").style = "color:yellow";
     document.querySelector("#star4").style = "color:none";
     document.querySelector("#star5").style = "color:none";
-   
   };
   star4 = () => {
     this.setState({ star: 4 });
-    console.log(this.state.star)
+    console.log(this.state.star);
     document.querySelector("#star1").style = "color:yellow";
     document.querySelector("#star2").style = "color:yellow";
     document.querySelector("#star3").style = "color:yellow";
     document.querySelector("#star4").style = "color:yellow";
     document.querySelector("#star5").style = "color:none";
-    
   };
   star5 = () => {
-    console.log(this.state.star)
+    console.log(this.state.star);
     this.setState({ star: 5 });
     document.querySelector("#star1").style = "color:yellow";
     document.querySelector("#star2").style = "color:yellow";
     document.querySelector("#star3").style = "color:yellow";
     document.querySelector("#star4").style = "color:yellow";
     document.querySelector("#star5").style = "color:yellow";
-    
   };
 
   handleChange = (value) => {
@@ -97,30 +95,63 @@ class Navbar1 extends Component {
     }
   };
 
-  getFan = () => {
-    axios.get("https://admin.credence.uz/en/subjects/").then((res) => {
+  getFan = (uz,en) => {
+    saveFansn(uz,en).then((res) => {
       this.setState({ data: res.data });
     });
   };
   getMalumot = (id) => {
     axios.get(`https://admin.credence.uz/en/subjects/${id}/`).then((res) => {
-      this.setState({ malumot: res.data , books:res.data.books ,key:id,  articles:res.data.articles,  projects:res.data.projects,presentations:res.data.presentations });
-      console.log(this.state.malumot)
+      this.setState({
+        malumot: res.data,
+        books: res.data.books,
+        key: id,
+        articles: res.data.articles,
+        projects: res.data.projects,
+        presentations: res.data.presentations,
+      });
+      console.log(this.state.malumot);
     });
   };
-  onchangeM=()=>{
-    this.setState({comment:document.querySelector('#exampleFormControlTextarea1').value})
-    console.log(this.state.comment)
-  }
-  putIzoh=()=>{
-    const manba={
-      'rate':'3',
-      'comment':'juda juda yaxshi'
-    }
-    axios.post(`https://admin.credence.uz/en/comments/`,manba).then(res=>{console.log("ishladi")}).catch(res=>{console.log("error")})
-  }
+  onchangeM = () => {
+    this.setState({
+      comment: document.querySelector("#exampleFormControlTextarea1").value,
+    });
+    console.log(this.state.comment);
+  };
+  putIzoh = () => {
+    var manba = {
+      rate: this.state.star,
+      comment: document.querySelector("#holl").value,
+    };
+    getPostsComments(manba)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((res) => {
+        console.log("error");
+      });
+  };
+
+  // addComments=(e)=>{
+  //   e.preventDefault();
+  //   const commentData = new commentData(e.target),
+  //   commentsDataObj=Object.commentEntries(commentData.entries());
+  //   getPostsComments(commentsDataObj).then((res)=>{
+  //     if (res && res.data) {
+  //       // toast.success('Yes')
+  //      alert('Yuborildi')
+  //     } else {
+  //       // toast.error('No')
+  //       alert('Yuborilmadi')
+  //     }
+  //   }).catch((res)=>{
+  //     alert("xato")
+  //   })
+  // }
+
   componentDidMount() {
-    this.getFan();
+    this.getFan(this.props.uzLang,this.props.enLang);
   }
   render() {
     const { uzLang, enLang } = this.props;
@@ -130,7 +161,7 @@ class Navbar1 extends Component {
           <header>
             <div className="container">
               <div className="row py-2 justify-content-between">
-                <div className="col-lg-5 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-6">
                   <a href="http://staff.tiiame.uz/" className={style1.linkLogo}>
                     <div className="d-flex justify-content-between w-100 align-items-center">
                       <div className="logo">
@@ -165,7 +196,8 @@ class Navbar1 extends Component {
                 <li id={style1.navitem} className="nav-item">
                   <Link
                     to="/"
-                   id={style1.navlink} className="nav-link active sahifa"
+                    id={style1.navlink}
+                    className="nav-link active sahifa"
                     aria-current="page"
                   >
                     {uzLang ? "Bosh sahifa" : enLang ? "Home" : "Главная"}
@@ -211,7 +243,8 @@ class Navbar1 extends Component {
                   <li id={style1.navitem} className="nav-item">
                     <Link
                       to="/Maqolalar"
-                     id={style1.navlink} className="nav-link"
+                      id={style1.navlink}
+                      className="nav-link"
                       aria-current="page"
                     >
                       {uzLang ? "Maqolalar" : enLang ? "Articles" : "Статьи"}
@@ -220,7 +253,8 @@ class Navbar1 extends Component {
                   <li id={style1.navitem} className="nav-item">
                     <Link
                       to="/Kitoblar"
-                     id={style1.navlink} className="nav-link"
+                      id={style1.navlink}
+                      className="nav-link"
                       aria-current="page"
                     >
                       {uzLang ? "Kitoblar" : enLang ? "Books" : "Книги"}
@@ -229,7 +263,8 @@ class Navbar1 extends Component {
                   <li id={style1.navitem} className="nav-item">
                     <Link
                       to="/taqdimotlar"
-                     id={style1.navlink} className="nav-link"
+                      id={style1.navlink}
+                      className="nav-link"
                       aria-current="page"
                     >
                       {uzLang
@@ -242,7 +277,8 @@ class Navbar1 extends Component {
                   <li id={style1.navitem} className="nav-item">
                     <Link
                       to="/loyihalar"
-                     id={style1.navlink} className="nav-link"
+                      id={style1.navlink}
+                      className="nav-link"
                       aria-current="page"
                     >
                       {uzLang ? "Loyihalar" : enLang ? "Projects" : "Проекты"}
@@ -252,7 +288,8 @@ class Navbar1 extends Component {
                   <li id={style1.navitem} className="nav-item">
                     <Link
                       to="/videolar"
-                     id={style1.navlink} className="nav-link"
+                      id={style1.navlink}
+                      className="nav-link"
                       aria-current="page"
                     >
                       {uzLang ? "Videolar" : enLang ? "Videos" : "Видеоуроки"}
@@ -263,12 +300,16 @@ class Navbar1 extends Component {
                       <button className={style1.dropbtn}>
                         {uzLang ? "Fanlar" : enLang ? "Subjects" : "Предметы"}
                       </button>
-                      <div id={style1.dropdowncontent} className="dropdown-content fanlar">
+                      <div
+                        id={style1.dropdowncontent}
+                        className="dropdown-content fanlar"
+                      >
                         {this.state.data.map((item) => {
                           return (
                             <div>
+                              
                               <Link
-                                to="/fan1"
+                                to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
                                 {item.name}
@@ -280,7 +321,12 @@ class Navbar1 extends Component {
                     </div>
                   </li>
                   <li id={style1.navitem} className="nav-item">
-                    <a href="#footer"id={style1.navlink} className="nav-link" aria-current="page">
+                    <a
+                      href="#footer"
+                      id={style1.navlink}
+                      className="nav-link"
+                      aria-current="page"
+                    >
                       {uzLang ? "Bog'lanish" : enLang ? "Contact" : "Контакты"}
                     </a>
                   </li>
@@ -308,18 +354,27 @@ class Navbar1 extends Component {
           </nav>
 
           <Routes>
-          <Route exact path="/" element={<Section />} />
+            <Route exact path="/" element={<Section />} />
             <Route path="/Maqolalar" element={<Maqolalar />} />
             <Route path="/Kitoblar" element={<Kitoblar />} />
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
             <Route path="/loyihalar" element={<Loyihalar />} />
             <Route path="/videolar" element={<Videolar />} />
             <Route
-              path="/fan1"
+              path="/fanlar"
               element={
                 <div>
                   <div className="mt-5 mb-5 fan1">
-                    <h1 className={style1.text}> Fanlar bo`yicha</h1>
+                    <h1 className={style1.text}>
+                    { this.state.data.map((item) => {
+                          return (
+                            <div className='my-2'>
+                                {item.name}
+                              
+                            </div>
+                          );
+                        })}
+                       </h1>
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8">
@@ -334,7 +389,7 @@ class Navbar1 extends Component {
                                   aria-expanded="false"
                                   aria-controls="collapseTwo"
                                 >
-                                  Maqolalar
+                                  {uzLang?"Maqolalar":enLang?"Articles":"Cтатьи"}
                                 </button>
                               </h2>
                               <div
@@ -344,20 +399,36 @@ class Navbar1 extends Component {
                                 data-bs-parent="#accordionExample"
                               >
                                 <div className="accordion-body">
-                            {this.state.articles.length==0?(<h5>hozrcha malumot topilmadi</h5>):(
-                            this.state.articles.map((item)=>{
-                          return ( <table className="table table-striped">
-                                    <thead>{item.name}</thead>
-                                    <tbody>
-                                    {item.slug}<a href={`https://admin.credence.uz/en/subjects/${this.state.key}/`+`${item.file}`}>yuklab olish</a>
-                                      <tr>
-                                        <td colspan="4">
-                                          <table className="table mb-0">{item.file}</table>
-                                        </td>
-                                      </tr>
-                                      {item.date_published}
-                                    </tbody>
-                                  </table>) }))}  
+                                  {this.state.articles.length == 0 ? (
+                                    <h5>{uzLang?"hozircha malumot topilmadi":enLang?"No information found yet":"Информация пока не найдена"}</h5>
+                                  ) : (
+                                    this.state.articles.map((item) => {
+                                      return (
+                                        <table className="table table-striped">
+                                          <thead>{item.name}</thead>
+                                          <tbody>
+                                            {item.slug}
+                                            <a
+                                              href={
+                                                `https://admin.credence.uz/en/subjects/${this.state.key}/` +
+                                                `${item.file}`
+                                              }
+                                            >
+                                              {uzLang?" yuklab olish":enLang?" download":"  скачать"}
+                                            </a>
+                                            <tr>
+                                              <td colspan="4">
+                                                <table className="table mb-0">
+                                                  {item.file}
+                                                </table>
+                                              </td>
+                                            </tr>
+                                            {item.date_published}
+                                          </tbody>
+                                        </table>
+                                      );
+                                    })
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -371,7 +442,7 @@ class Navbar1 extends Component {
                                   aria-expanded="true"
                                   aria-controls="collapseOne"
                                 >
-                                  Kitoblar
+                                  {uzLang?"Kitoblar":enLang?"Books":"Книги"}
                                 </button>
                               </h2>
                               <div
@@ -381,26 +452,37 @@ class Navbar1 extends Component {
                                 data-bs-parent="#accordionExample"
                               >
                                 <div className="accordion-body">
-                                {this.state.books.length==0?(<h5>hozrcha malumot topilmadi</h5>):(
-                            this.state.books.map((item)=>{
-                          return ( <table className="table table-striped">
-                                    <thead>{item.slug}</thead>
-                                    <tbody>
-                                    {item.name}
-                                      <tr>
-                                        <td colspan="4">
-                                          <table className="table mb-0">{item.file}</table>
-                                        </td>
-                                      </tr>
-                                      {item.date_published}
-                                    </tbody>
-                                  </table>) }))}
+                                  {this.state.books.length == 0 ? (
+                                    <h5>hozrcha malumot topilmadi</h5>
+                                  ) : (
+                                    this.state.books.map((item) => {
+                                      return (
+                                        <table className="table table-striped">
+                                          <thead>{item.slug}</thead>
+                                          <tbody>
+                                            {item.name}
+                                            <tr>
+                                              <td colspan="4">
+                                                <table className="table mb-0">
+                                                  {item.file}
+                                                </table>
+                                              </td>
+                                            </tr>
+                                            {item.date_published}
+                                          </tbody>
+                                        </table>
+                                      );
+                                    })
+                                  )}
                                 </div>
                               </div>
                             </div>
 
                             <div className="accordion-item">
-                              <h2 className="accordion-header" id="headingThree">
+                              <h2
+                                className="accordion-header"
+                                id="headingThree"
+                              >
                                 <button
                                   className="accordion-button collapsed"
                                   type="button"
@@ -409,7 +491,11 @@ class Navbar1 extends Component {
                                   aria-expanded="false"
                                   aria-controls="collapseThree"
                                 >
-                                  Taqdimotlar
+                                  {uzLang
+                        ? "Taqdimotlar"
+                        : enLang
+                        ? "Presentations"
+                        : "Презентации"}
                                 </button>
                               </h2>
                               <div
@@ -419,20 +505,28 @@ class Navbar1 extends Component {
                                 data-bs-parent="#accordionExample"
                               >
                                 <div className="accordion-body">
-                                {this.state.presentations.length==0?(<h5>hozrcha malumot topilmadi</h5>):(
-                            this.state.presentations.map((item)=>{
-                          return ( <table className="table table-striped">
-                                    <thead>{item.slug}</thead>
-                                    <tbody>
-                                    {item.name}
-                                      <tr>
-                                        <td colspan="4">
-                                          <table className="table mb-0">{item.file}</table>
-                                        </td>
-                                      </tr>
-                                      {item.date_published}
-                                    </tbody>
-                                  </table>) }))}
+                                  {this.state.presentations.length == 0 ? (
+                                    <h5>hozrcha malumot topilmadi</h5>
+                                  ) : (
+                                    this.state.presentations.map((item) => {
+                                      return (
+                                        <table className="table table-striped">
+                                          <thead>{item.slug}</thead>
+                                          <tbody>
+                                            {item.name}
+                                            <tr>
+                                              <td colspan="4">
+                                                <table className="table mb-0">
+                                                  {item.file}
+                                                </table>
+                                              </td>
+                                            </tr>
+                                            {item.date_published}
+                                          </tbody>
+                                        </table>
+                                      );
+                                    })
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -446,7 +540,7 @@ class Navbar1 extends Component {
                                   aria-expanded="false"
                                   aria-controls="collapseFour"
                                 >
-                                  Loyihalar
+                                  {uzLang ? "Loyihalar" : enLang ? "Projects" : "Проекты"}
                                 </button>
                               </h2>
                               <div
@@ -456,20 +550,28 @@ class Navbar1 extends Component {
                                 data-bs-parent="#accordionExample"
                               >
                                 <div className="accordion-body">
-                                {this.state.projects.length==0?(<h5>hozrcha malumot topilmadi</h5>):(
-                            this.state.projects.map((item)=>{
-                          return ( <table className="table table-striped">
-                                    <thead>{item.slug}</thead>
-                                    <tbody>
-                                    {item.name}
-                                      <tr>
-                                        <td colspan="4">
-                                          <table className="table mb-0">{item.file}</table>
-                                        </td>
-                                      </tr>
-                                      {item.date_published}
-                                    </tbody>
-                                  </table>) }))}
+                                  {this.state.projects.length == 0 ? (
+                                    <h5>hozrcha malumot topilmadi</h5>
+                                  ) : (
+                                    this.state.projects.map((item) => {
+                                      return (
+                                        <table className="table table-striped">
+                                          <thead>{item.slug}</thead>
+                                          <tbody>
+                                            {item.name}
+                                            <tr>
+                                              <td colspan="4">
+                                                <table className="table mb-0">
+                                                  {item.file}
+                                                </table>
+                                              </td>
+                                            </tr>
+                                            {item.date_published}
+                                          </tbody>
+                                        </table>
+                                      );
+                                    })
+                                  )}
                                 </div>
                               </div>
                             </div>
@@ -491,24 +593,91 @@ class Navbar1 extends Component {
                           </button>
                         </div>
                       </div>
-                      <div><h4 style={{marginTop:'20px'}}>O`qituvchiga qoldirilgan izohlar</h4><div style={{display:'flex'}}> 
-                               {this.state.natija>=1? (<FaStar style={{color:'yellow'}} />):(<FaStar style={{color:'black'}}  />)}
-                               {this.state.natija>=2? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija>=3? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija>=4? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija==4.6? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}  <p style={{marginLeft:'10px'}}>{this.state.natija}</p></div>
-              <div className={style1.card11}>
-                <h5><div style={{display:'flex'}}> 
-                               {this.state.natija>=1? (<FaStar style={{color:'yellow'}} />):(<FaStar style={{color:'black'}}  />)}
-                               {this.state.natija>=2? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija>=3? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija>=4? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
-                               {this.state.natija==4.6? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}  <p style={{marginLeft:'30px',fontSize:'20px'}}>{this.state.natija}</p></div></h5>
-                <p>rahmat domla borizga shukur yaxshiyam siz borsiz </p>
-                <p style={{position:'absolute',bottom:'10px',right:'30px'}}>12-12-1998</p>
-              </div>
-              </div>
+                      <div>
+                        <h4 style={{ marginTop: "20px" }}>
+                          O`qituvchiga qoldirilgan izohlar
+                        </h4>
+                        <div style={{ display: "flex" }}>
+                          {this.state.natija >= 1 ? (
+                            <FaStar style={{ color: "yellow" }} />
+                          ) : (
+                            <FaStar style={{ color: "black" }} />
+                          )}
+                          {this.state.natija >= 2 ? (
+                            <FaStar style={{ color: "yellow" }} />
+                          ) : (
+                            <FaStar style={{ color: "black" }} />
+                          )}
+                          {this.state.natija >= 3 ? (
+                            <FaStar style={{ color: "yellow" }} />
+                          ) : (
+                            <FaStar style={{ color: "black" }} />
+                          )}
+                          {this.state.natija >= 4 ? (
+                            <FaStar style={{ color: "yellow" }} />
+                          ) : (
+                            <FaStar style={{ color: "black" }} />
+                          )}
+                          {this.state.natija == 4.6 ? (
+                            <FaStar style={{ color: "yellow" }} />
+                          ) : (
+                            <FaStar style={{ color: "black" }} />
+                          )}{" "}
+                          <p style={{ marginLeft: "10px" }}>
+                            {this.state.natija}
+                          </p>
+                        </div>
+                        <div className={style1.card11}>
+                          <h5>
+                            <div style={{ display: "flex" }}>
+                              {this.state.natija >= 1 ? (
+                                <FaStar style={{ color: "yellow" }} />
+                              ) : (
+                                <FaStar style={{ color: "black" }} />
+                              )}
+                              {this.state.natija >= 2 ? (
+                                <FaStar style={{ color: "yellow" }} />
+                              ) : (
+                                <FaStar style={{ color: "black" }} />
+                              )}
+                              {this.state.natija >= 3 ? (
+                                <FaStar style={{ color: "yellow" }} />
+                              ) : (
+                                <FaStar style={{ color: "black" }} />
+                              )}
+                              {this.state.natija >= 4 ? (
+                                <FaStar style={{ color: "yellow" }} />
+                              ) : (
+                                <FaStar style={{ color: "black" }} />
+                              )}
+                              {this.state.natija == 4.6 ? (
+                                <FaStar style={{ color: "yellow" }} />
+                              ) : (
+                                <FaStar style={{ color: "black" }} />
+                              )}{" "}
+                              <p
+                                style={{ marginLeft: "30px", fontSize: "20px" }}
+                              >
+                                {this.state.natija}
+                              </p>
+                            </div>
+                          </h5>
+                          <p>
+                            rahmat domla borizga shukur yaxshiyam siz borsiz{" "}
+                          </p>
+                          <p
+                            style={{
+                              position: "absolute",
+                              bottom: "10px",
+                              right: "30px",
+                            }}
+                          >
+                            12-12-1998
+                          </p>
+                        </div>
+                      </div>
                     </div>
+
 
                     <div
                       className="modal fade"
@@ -520,12 +689,6 @@ class Navbar1 extends Component {
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header">
-                            <h5
-                              className="modal-title text-center"
-                              id="exampleModalLabel"
-                            >
-                              O'qituvchini Baholash
-                            </h5>
                             <button
                               type="button"
                               class="btn-close"
@@ -533,45 +696,75 @@ class Navbar1 extends Component {
                               aria-label="Close"
                             ></button>
                           </div>
-                          <div className="modal-body">
+                          <Form className="p-3">
                             <div className="mb-3">
                               Baholash
                               <div className={style1.star}>
-                                <FaStar id="star1" onClick={() => this.star1()} />
-                                <FaStar id="star2"  onClick={()=>this.star2()} />
-                                <FaStar id="star3"  onClick={()=>this.star3()} />
-                                <FaStar id="star4" onClick={()=>this.star4()} />
-                                <FaStar id="star5" onClick={()=>this.star5()} />  <p style={{paddingLeft:'10px'}}>{this.state.star} ball</p>
+                                <FaStar
+                                  id="star1"
+                                  onClick={() => this.star1()}
+                                />
+                                <FaStar
+                                  id="star2"
+                                  onClick={() => this.star2()}
+                                />
+                                <FaStar
+                                  id="star3"
+                                  onClick={() => this.star3()}
+                                />
+                                <FaStar
+                                  id="star4"
+                                  onClick={() => this.star4()}
+                                />
+                                <FaStar
+                                  id="star5"
+                                  onClick={() => this.star5()}
+                                />{" "}
+                                <p style={{ paddingLeft: "10px" }}>
+                                  {this.state.star} ball
+                                </p>
                               </div>
                             </div>
-                            <div className="mb-3">
-                              <label
-                                for="exampleFormControlTextarea1"
-                                className="form-label"
-                              >
-                              Shaxsiy fikringizni bildiring.
-                              </label>
-                              <textarea
-                               onChange={this.onchangeM}
-                                className="form-control"
-                                id="exampleFormControlTextarea1"
-                                rows="3"
-                              ></textarea>
-                              <p style={{color:'red',fontSize:'12px'}}>fikrlaringiz ko`rib chiqiladi.</p>
-                            </div>
-                          </div>
-                          <div className="modal-footer">
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              data-bs-dismiss="modal"
+                            <Form.Group controlId="message" className="mb-3">
+                              <Form.Label>
+                                {uzLang
+                                  ? "Shaxsiy fikringizni bildiring."
+                                  : enLang
+                                  ? "Message"
+                                  : "Сообщение"}
+                              </Form.Label>
+                              <Form.Control
+                                as="textarea"
+                                name="message"
+                                rows={3}
+                                id="holl"
+                                placeholder="Murojat matni..."
+                              />
+                            </Form.Group>
+                            <Button
+                              onClick={this.putIzoh}
+                              variant="success"
+                              type="submit"
+                              className="float-end"
                             >
-                              Close
-                            </button>
-                            <button type="button"  onClick={this.putIzoh} className="btn btn-primary">
-                              Save changes
-                            </button>
-                          </div>
+                              {uzLang
+                                ? "Jo`natish"
+                                : enLang
+                                ? "Save"
+                                : "Спасти"}
+                            </Button>
+                            <Button
+                              variant="success"
+                              type="reset"
+                              className="mx-2 float-end"
+                            >
+                              {uzLang
+                                ? "Tozalash"
+                                : enLang
+                                ? "Clear"
+                                : "Очистить"}
+                            </Button>
+                          </Form>
                         </div>
                       </div>
                     </div>
@@ -581,7 +774,7 @@ class Navbar1 extends Component {
             />
           </Routes>
           <Footer />
-        </BrowserRouter> 
+        </BrowserRouter>
       </div>
     );
   }
