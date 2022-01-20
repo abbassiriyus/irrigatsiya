@@ -29,7 +29,8 @@ class Navbar1 extends Component {
     projects:[],
     presentations:[],
     key:0,
-    comment:''
+    comment:'',
+    natija:4.4
   };
 
   star1 = () => {
@@ -486,10 +487,26 @@ class Navbar1 extends Component {
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal"
                           >
-                            Comment
+                            Izoh qoldirish
                           </button>
                         </div>
                       </div>
+                      <div><h4 style={{marginTop:'20px'}}>O`qituvchiga qoldirilgan izohlar</h4><div style={{display:'flex'}}> 
+                               {this.state.natija>=1? (<FaStar style={{color:'yellow'}} />):(<FaStar style={{color:'black'}}  />)}
+                               {this.state.natija>=2? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija>=3? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija>=4? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija==4.6? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}  <p style={{marginLeft:'10px'}}>{this.state.natija}</p></div>
+              <div className={style1.card11}>
+                <h5><div style={{display:'flex'}}> 
+                               {this.state.natija>=1? (<FaStar style={{color:'yellow'}} />):(<FaStar style={{color:'black'}}  />)}
+                               {this.state.natija>=2? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija>=3? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija>=4? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}
+                               {this.state.natija==4.6? (<FaStar style={{color:'yellow'}}  />):(<FaStar style={{color:'black'}} />)}  <p style={{marginLeft:'30px',fontSize:'20px'}}>{this.state.natija}</p></div></h5>
+                <p>rahmat domla borizga shukur yaxshiyam siz borsiz </p>
+              </div>
+              </div>
                     </div>
 
                     <div
@@ -519,9 +536,9 @@ class Navbar1 extends Component {
                             <div className="mb-3">
                               Baholash
                               <div className={style1.star}>
-                                <FaStar id="star1" href="#" onClick={() => this.star1()} />
-                                <FaStar id="star2" href="#" onClick={()=>this.star2()} />
-                                <FaStar id="star3" href="#" onClick={()=>this.star3()} />
+                                <FaStar id="star1" onClick={() => this.star1()} />
+                                <FaStar id="star2"  onClick={()=>this.star2()} />
+                                <FaStar id="star3"  onClick={()=>this.star3()} />
                                 <FaStar id="star4" onClick={()=>this.star4()} />
                                 <FaStar id="star5" onClick={()=>this.star5()} />  <p style={{paddingLeft:'10px'}}>{this.state.star} ball</p>
                               </div>
@@ -531,7 +548,7 @@ class Navbar1 extends Component {
                                 for="exampleFormControlTextarea1"
                                 className="form-label"
                               >
-                              Shaxsiy fikrongizni bildiring.
+                              Shaxsiy fikringizni bildiring.
                               </label>
                               <textarea
                                onChange={this.onchangeM}
@@ -539,7 +556,7 @@ class Navbar1 extends Component {
                                 id="exampleFormControlTextarea1"
                                 rows="3"
                               ></textarea>
-                              <p style={{color:'red',fontSize:'12'}}>fikrlaringiz korib chiqiladi</p>
+                              <p style={{color:'red',fontSize:'12px'}}>fikrlaringiz ko`rib chiqiladi.</p>
                             </div>
                           </div>
                           <div className="modal-footer">
