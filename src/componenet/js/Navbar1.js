@@ -113,10 +113,10 @@ class Navbar1 extends Component {
   }
   putIzoh=()=>{
     const manba={
-      rate:this.state.state,
-      comment:this.state.comment
+      'rate':'3',
+      'comment':'juda juda yaxshi'
     }
-    axios.post(`https://admin.credence.uz/uz/comments/`,{manba}).then(res=>{console.log("ishladi")}).catch(res=>{console.log("error")})
+    axios.post(`https://admin.credence.uz/en/comments/`,manba).then(res=>{console.log("ishladi")}).catch(res=>{console.log("error")})
   }
   componentDidMount() {
     this.getFan();
@@ -523,7 +523,7 @@ class Navbar1 extends Component {
                                 <FaStar id="star2" href="#" onClick={()=>this.star2()} />
                                 <FaStar id="star3" href="#" onClick={()=>this.star3()} />
                                 <FaStar id="star4" onClick={()=>this.star4()} />
-                                <FaStar id="star5" onClick={()=>this.star5()} />  
+                                <FaStar id="star5" onClick={()=>this.star5()} />  <p style={{paddingLeft:'10px'}}>{this.state.star} ball</p>
                               </div>
                             </div>
                             <div className="mb-3">
@@ -531,7 +531,7 @@ class Navbar1 extends Component {
                                 for="exampleFormControlTextarea1"
                                 className="form-label"
                               >
-                                Example textarea
+                              Shaxsiy fikrongizni bildiring.
                               </label>
                               <textarea
                                onChange={this.onchangeM}
@@ -539,6 +539,7 @@ class Navbar1 extends Component {
                                 id="exampleFormControlTextarea1"
                                 rows="3"
                               ></textarea>
+                              <p style={{color:'red',fontSize:'12'}}>fikrlaringiz korib chiqiladi</p>
                             </div>
                           </div>
                           <div className="modal-footer">
