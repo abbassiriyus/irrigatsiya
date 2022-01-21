@@ -9,6 +9,7 @@ import {ruLanguege} from '../redux/Actions/ruLanguege';
 import {enLanguege} from '../redux/Actions/enLanguege';
 import axios from "axios";
 import { host,  } from "../config/host";
+import style1 from '../css/Navbar1.module.css'
 import Elon from "./Elon";
 class Videolar extends Component {
   constructor(props) {
@@ -30,13 +31,14 @@ class Videolar extends Component {
       );
       const postData = slice.map((item,uz,en) => {
         return item.file != null ? (
-          <div className="mt-5" data-aos="zoom-in" data-aos-duration="3000">
+          <div className={style1.card11} data-aos="zoom-in" data-aos-duration="3000">
             <video controls width="100%">
               <source src={item.file} type="video/mp4"></source>
             </video>
+            <h4>{item.name==null?" ":item.name}</h4>
           </div>
         ) : (
-          <div className="mt-5" data-aos="zoom-in" data-aos-duration="3000">
+          <div className={style1.card11} data-aos="zoom-in" data-aos-duration="3000">
             <iframe
               width="100%"
               height="450"
@@ -46,6 +48,8 @@ class Videolar extends Component {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
+            <h4>{item.name==null?" ":item.name}</h4>
+
           </div>
         );
       });

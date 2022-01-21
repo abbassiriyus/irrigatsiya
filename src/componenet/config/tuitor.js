@@ -73,6 +73,13 @@ export let saveFansn = (uz,en) => {
   };
   return HttpRequest(config);
 }
+export let saveBaholash=()=>{
+  let config={
+    url: `${host}/comments/`,
+    method: 'GET',
+  }
+  return HttpRequest(config);
+}
 
 export let fotosLavha = () => {
   let config = {
@@ -90,6 +97,10 @@ export let getPosts = (formDataObj) => {
     };
     return HttpRequest(config);
   };
+
+
+
+
 
   export let getPostsComments = (commentsDataObj) => {
     let config = {
