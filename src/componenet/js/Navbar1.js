@@ -18,8 +18,8 @@ import Loyihalar from "./Loyihalar";
 import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
-import { Button, Form } from "react-bootstrap";
-import { getPostsComments, saveFansn } from "../config/tuitor";
+import { Button, Form, NavDropdown } from "react-bootstrap";
+import {  saveFansn } from "../config/tuitor";
 
 class Navbar1 extends Component {
   state = {
@@ -31,12 +31,16 @@ class Navbar1 extends Component {
     articles: [],
     projects: [],
     presentations: [],
-    key: 0,
+    key: 0, 
+    close: false,
+    nomi:'Fani kiriting',
+    demo:0,
     natija: 4.4,
       izohlar:{
         star: 0,
-      comment: "",
+      comment:"",
       }
+   
   };
   
 
@@ -104,25 +108,13 @@ class Navbar1 extends Component {
       this.setState({ data: res.data });
     });
   };
-  getMalumot = (id) => {
-    axios.get(`https://admin.credence.uz/en/subjects/${id}/`).then((res) => {
-      this.setState({
-        malumot: res.data,
-        books: res.data.books,
-        key: id,
-        articles: res.data.articles,
-        projects: res.data.projects,
-        presentations: res.data.presentations,
-      });
-      console.log(this.state.malumot);
-    });
-  };
-  onchangeM = () => {
-    this.setState({
-      comment: document.querySelector("#exampleFormControlTextarea1").value,
-    });
-    console.log(this.state.comment);
-  };
+  getMalumot=(key)=>{
+const result = this.state.data.filter(item => item.id==key);
+this.setState({malumot:result,nomi:result.name})
+console.log(this.state.malumot)
+  }
+
+  
 
 
 
@@ -144,6 +136,13 @@ class Navbar1 extends Component {
       console.log(error);
     })
   }
+
+
+
+  
+
+
+
 
 
 
@@ -309,7 +308,20 @@ class Navbar1 extends Component {
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
-                                {item.name}
+                                 <NavDropdown
+          id="nav-dropdown-button-drop-end"
+          key="end"
+        drop="end"
+          title={item.name}
+          menuVariant="light"
+        >
+          <NavDropdown.Item href="#action/3.1">Silabus</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Kitoblar</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Taqdimotlar</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Loyihalar</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Taqdimotlar</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.3">Maqolalar</NavDropdown.Item>
+        </NavDropdown>
                               </Link>
                             </div>
                           );
@@ -358,21 +370,26 @@ class Navbar1 extends Component {
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
             <Route path="/loyihalar" element={<Loyihalar />} />
             <Route path="/videolar" element={<Videolar />} />
+            <Route render={() => <Navigate to="/" />} />
             <Route
               path="/fanlar"
               element={
                 <div>
                   <div className="mt-5 mb-5 fan1">
                     <h1 className={style1.text}>
-                      {this.state.data.map((item) => {
-                        return <div className="my-2">{item.name}</div>;
-                      })}
-                    </h1>
+                    
+                   
+                            <div className='my-2' id="demo11">
+                              {this.state.nomi}
+                              
+                            </div>
+                        
+                       </h1>
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8">
-                          <div className="accordion" id="accordionExample">
-                            <div className="accordion-item">
+                        <div className="accordion" id="accordionExample">
+                               <div className="accordion-item">
                               <h2 className="accordion-header" id="headingTwo">
                                 <button
                                   className="accordion-button collapsed"
@@ -404,7 +421,7 @@ class Navbar1 extends Component {
                                         ? "No information found yet"
                                         : "Информация пока не найдена"}
                                     </h5>
-                                  ) : (
+                                ) : (
                                     this.state.articles.map((item) => {
                                       return (
                                         <table className="table table-striped">
@@ -439,7 +456,7 @@ class Navbar1 extends Component {
                                 </div>
                               </div>
                             </div>
-                            <div className="accordion-item">
+                            {/*<div className="accordion-item">
                               <h2 className="accordion-header" id="headingOne">
                                 <button
                                   className="accordion-button"
@@ -589,8 +606,8 @@ class Navbar1 extends Component {
                                   )}
                                 </div>
                               </div>
-                            </div>
-                          </div>
+                            </div>*/}
+                          </div> 
                         </div>
                         <div className="col-lg-4">
                           <Elon />
