@@ -6,6 +6,8 @@ import { ruLanguege } from "../redux/Actions/ruLanguege";
 import { connect } from "react-redux";
 import { host } from "../config/host";
 import axios from "axios";
+import {  hosten, hostru } from "../config/host";
+import { saveBooks } from "../config/tuitor";
 import { FaStar } from "react-icons/fa";
 import style1 from "../css/Navbar1.module.css";
 import Elon from "./Elon";
@@ -18,11 +20,17 @@ import Loyihalar from "./Loyihalar";
 import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
-import { Button, Form, NavDropdown } from "react-bootstrap";
+import { Button, Form, NavDropdown, Table } from "react-bootstrap";
 import { saveBaholash, saveFansn } from "../config/tuitor";
+import ReactPaginate from "react-paginate";
+import s from "../css/Homepage.module.css";
 
 class Navbar1 extends Component {
   state = {
+    offset: 0,
+    data: [],
+    perPage: 10,
+    currentPage: 0,
     data: [],
     malumot: {},
     star: 0,
@@ -38,6 +46,77 @@ class Navbar1 extends Component {
       subject: 0,
     },
   };
+
+
+
+
+
+  receivedData(uz,en) {
+    saveBooks(uz,en).then((res) => {
+      const data = res.data;
+      const slice = data.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage
+      );
+      const postData = slice.map((item,uz,en) => {
+        return item.file != null ? (
+          <React.Fragment>
+            <tr className="tables">
+              <td>{item.count}</td>
+              <td>
+                <a download href={uz?`${host}/books/`+item.slug+"/download":en?`${hosten}/books/`+item.slug+"/download":`${hostru}/books/`+"/"+item.slug+"/download"}>
+                  {item.name}
+                  <span className='badge badge-primary mydownload' id={s.mydownload}>download</span>
+                </a>
+              </td>
+              <td>
+                <a> </a>
+              </td>
+            </tr>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <tr className="tables">
+              <td></td>
+              <td>
+                <a>{item.name}</a>
+              </td>
+              <td>
+                <a href={item.link} className='links'>{this.uzLang?"Ochish":this.enLang?"View":"Открыть"}</a>
+              </td>
+            </tr>
+          </React.Fragment>
+        );
+        });
+      this.setState({
+        pageCount: Math.ceil(data.length / this.state.perPage),
+        postData,
+      })
+    });
+  }
+  handlePageClick = (e) => {
+    const selectedPage = e.selected;
+    const offset = selectedPage * this.state.perPage;
+    this.setState(
+      {
+        currentPage: selectedPage,
+        offset: offset,
+      },
+      () => {
+        this.receivedData();
+      }
+    );
+  };
+
+
+
+
+
+
+
+
+
+
 
   star1 = () => {
     this.setState({ star: 1 });
@@ -136,10 +215,10 @@ class Navbar1 extends Component {
   </div>`
 });
 };
-mustaqiltalim= () => {
+mustaqil_talim= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.mustaqiltalim.map((item) => {
+  this.state.malumot.mustaqil_talim.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -157,10 +236,10 @@ display: block;">
 });
 };
 
-maruzavaprezentatsiyalar= () => {
+maruza_va_prezentatsiyalar= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.maruzavaprezentatsiyalar.map((item) => {
+  this.state.malumot.maruza_va_prezentatsiyalar.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -177,10 +256,10 @@ display: block;">
 </div>`
 });
 };
-laboratoriyaishlari= () => {
+laboratoriya_ishlari= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.laboratoriyaishlari.map((item) => {
+  this.state.malumot.laboratoriya_ishlari.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -197,10 +276,10 @@ display: block;">
 </div>`
 });
 };
-amaliydarsmateriallari= () => {
+amaliy_dars_materiallar= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.amaliydarsmateriallari.map((item) => {
+  this.state.malumot.amaliy_dars_materiallar.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -217,10 +296,10 @@ display: block;">
 </div>`
 });
 };
-hisobgrafikishlar= () => {
+hisob_grafik_ishlar= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.hisobgrafikishlar.map((item) => {
+  this.state.malumot.hisob_grafik_ishlar.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -277,10 +356,10 @@ display: block;">
 </div>`
 });
 };
-qoshimchahujjatlar= () => {
+qoshimcha_hujjatlar= () => {
   document.querySelector("#accordionExample").innerHTML = " ";
 
-  this.state.malumot.qoshimchahujjatlar.map((item) => {
+  this.state.malumot.qoshimcha_hujjatlar.map((item) => {
     document.querySelector(
       "#accordionExample"
     ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
@@ -341,6 +420,7 @@ handleSubmit1 = event => {
   };
 
   componentDidMount() {
+    this.receivedData(this.props.uzLang, this.props.enLang);
     this.getFan(this.props.uzLang, this.props.enLang);
   }
   render() {
@@ -516,25 +596,25 @@ handleSubmit1 = event => {
                                   syllabuys
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
-                                    onClick={this.mustaqiltalim}
+                                    onClick={this.mustaqil_talim}
                                     href="#action/3.2"
                                   >
                                     mustaqil talim
                                   </NavDropdown.Item>
                                   <NavDropdown.Item 
-                                    onClick={this.maruzavaprezentatsiyalar}
+                                    onClick={this.maruza_va_prezentatsiyalar}
                                   href="#action/3.3">
                                     maruza va prezentatsiyalar
                                   </NavDropdown.Item>
                                   <NavDropdown.Item  
-                                    onClick={this.laboratoriyaishlari}
+                                    onClick={this.laboratoriya_ishlari}
                                   href="#action/3.3">
                                     laboratoriya ishlari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.amaliydarsmateriallari} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.amaliy_dars_materiallar} href="#action/3.3">
                                   amaliy dars materiallari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.hisobgrafikishlar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.hisob_grafik_ishlar} href="#action/3.3">
                                   hisob grafik ishlar
                                   </NavDropdown.Item>
                                   <NavDropdown.Item  onClick={this.kursishlari} href="#action/3.3">
@@ -543,7 +623,7 @@ handleSubmit1 = event => {
                                   <NavDropdown.Item  onClick={this.topshiriqlar} href="#action/3.3">
                                   topshiriqlar
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.qoshimchahujjatlar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.qoshimcha_hujjatlar} href="#action/3.3">
                                   qoshimcha hujjatlar
                                   </NavDropdown.Item>
                                 </NavDropdown>
@@ -608,7 +688,44 @@ handleSubmit1 = event => {
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8" id="accordionExample">
-                          <Kitoblar />
+                        <p className={s.izoh}>
+                
+                <i className="fas fa-book"></i>  {uzLang?"Kitoblar ro'yxati":enLang?" List of Books":"Список книг"}
+              </p>
+              <Table
+                striped
+                bordered
+                hover
+                size="lg"
+                text="center"
+                className="tables"
+                id={s.tables}
+              >
+                <thead>
+                  <tr>
+                    <th>{uzLang?"MUQOVASI":enLang?"COVER":"ОБЛОЖКА"}</th>
+                    <th className='w-75'>{uzLang?"TO`LIQ NOMI":enLang?"FULL TITLE":"ПОЛЬНОЕ НАЗВАНИЕ"}</th>
+                    <th>{uzLang?"HAVOLA":enLang?"LINK":"ССЫЛКА"}</th>
+                  </tr>
+                </thead>
+                <tbody>{this.state.postData}</tbody>
+              </Table>
+              <div className="d-flex w-100% paginates" id={s. paginates}>
+                <ReactPaginate
+                  previousLabel={"prev"}
+                  nextLabel={"next"}
+                  breakLabel={"..."}
+                  breakClassName={"break-me"}
+                  pageCount={this.state.pageCount}
+                  marginPagesDisplayed={1}
+                  pageRangeDisplayed={3}
+                  onPageChange={this.handlePageClick}
+                  containerClassName={"pagination"}
+                  subContainerClassName={"pages pagination"}
+                  activeClassName={"active"}
+                  className={s.pagination}
+                />
+              </div>
                         </div>
                         <div className="col-lg-4">
                           <Elon />
