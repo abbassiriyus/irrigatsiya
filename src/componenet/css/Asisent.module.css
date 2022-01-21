@@ -1,74 +1,75 @@
 #typedtext {
-    font-size: 34px;
-    color: #3365a5;
-  }
-  #section1 {
-    background-color: #f7f7f7;
-    border-bottom: 1px solid gainsboro;
-  }
-  #asisent {
-    font-size: 20px;
-  }
-  #myname {
-    color: #3365a5;
-    font-size: 16px;
-  }
-  
-  #mycard {
-    overflow: hidden;
-    border: none;
-  }
-  #mycard img {
-    transition: 0.4s all;
-  }
-  #mycard #cardheader:hover img {
-    transform: scale(1.05);
-  }
-  #mycard #cardheader {
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-  }
-  #mycard #cardbody {
-    padding: 0;
-    border: 0;
-  }
+  font-size: 34px;
+  color: #3365a5;
+}
+#section1 {
+  background-color: #c7b9b0;
+  border-bottom: 1px solid gainsboro;
+}
+#asisent {
+  font-size: 20px;
+  margin: 0;
+}
+.imgLogo {
+  margin: 20px;
+  height: 90px;
+}
+#myname {
+  color: #3365a5;
+  font-size: 16px;
+}
 
-  #mybtn {
-    width: 100%;
-    height: auto;
+#mycard {
+  overflow: hidden;
+  border: none;
+}
+#mycard img {
+  transition: 0.4s all;
+}
+#mycard #cardheader:hover img {
+  transform: scale(1.05);
+}
+#mycard #cardheader {
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+}
+#mycard #cardbody {
+  padding: 0;
+  border: 0;
+}
+
+#mybtn {
+  width: 100%;
+  height: auto;
+  background-color: #3365a5;
+  color: white;
+  animation-name: example;
+  animation-duration: 7s;
+  animation-iteration-count: infinite;
+}
+#mybtn:hover {
+  color: wheat;
+}
+@keyframes example {
+  0% {
     background-color: #3365a5;
     color: white;
-    animation-name: example;
-    animation-duration: 7s;
-    animation-iteration-count: infinite;
   }
-  #mybtn:hover {
-    color: wheat;
+  25% {
+    background-color: green;
+    color: #f7f7f7;
   }
-  @keyframes example {
-    0% {
-      background-color: #3365a5;
-      color: white;
-    }
-    25%{
-     background-color: green;
-     color: #f7f7f7;
-    }
-    50% {
-      background-color: gray;
-      color: white;
-      
-    }
-    75%{
-        background-color: orange;
-        color: blue;
-      
-    }
-    100%{
-        background-color: yellow;
-        color: black;
-       
-    }
+  50% {
+    background-color: gray;
+    color: white;
   }
-  
+  75% {
+    background-color: orange;
+    color: blue;
+  }
+  100% {
+    background-color: yellow;
+    color: black;
+  }
+}

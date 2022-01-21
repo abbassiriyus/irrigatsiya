@@ -19,7 +19,7 @@ import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
 import { Button, Form, NavDropdown } from "react-bootstrap";
-import {  saveFansn } from "../config/tuitor";
+import { saveBaholash, saveFansn } from "../config/tuitor";
 
 class Navbar1 extends Component {
   state = {
@@ -27,22 +27,17 @@ class Navbar1 extends Component {
     malumot: {},
     star: 0,
     comment: "",
-    book: [],
-    articles: [],
-  projects: [],
-    presentations: [],
-    key: 0, 
-    close: false,
+    key: 0,
     nomi:'Aniq bir fani kitiring iltimos',
     demo:0,
     natija: 4.4,
-      izohlar:{
-        star: 0,
-      comment:"",
-      }
-   
+    umumiyIzoh: [],
+    izohlar: {
+      star: 0,
+      comment: "",
+      subject: 0,
+    },
   };
-  
 
   star1 = () => {
     this.setState({ star: 1 });
@@ -107,7 +102,9 @@ class Navbar1 extends Component {
     saveFansn(uz, en).then((res) => {
       this.setState({ data: res.data });
     });
+    this.getBaholash();
   };
+ 
   getMalumot=(key)=>{
 const result = this.state.data.filter(item => item.id==key);
 this.setState({malumot:result[0] , nomi:result[0].name})
@@ -140,37 +137,45 @@ console.log(this.state.malumot)
   
 
   changeHandler = (e) => {
-    this.setState({[e.target.name]:e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   };
+
+
   submitHandler=(e)=>{
     e.preventDefault()
   //  console.log(this.state)  
     const user = {
-      comment:this.state.comment,
-      star:this.state.star
-    }
-    axios.post('https://admin.credence.uz/uz/comments/').then(res=>{
-      console.log(res)
-    }).catch(error=>{
-      console.log(error);
-    })
-  }
+      izohlar: this.state.izohlar,
+    };
+    axios
+      .post("https://admin.credence.uz/uz/comments/", user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-
-
-  
-
-
-
-
-
-
+  getBaholash = () => {
+    saveBaholash()
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          umumiyIzoh: res.data,
+        });
+      })
+      .catch((res) => {
+        console.log("xato keldi");
+      });
+  };
 
   componentDidMount() {
     this.getFan(this.props.uzLang, this.props.enLang);
   }
   render() {
     const { uzLang, enLang } = this.props;
+    const { umumiyIzoh } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -328,20 +333,33 @@ console.log(this.state.malumot)
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
-                                 <NavDropdown
-          id="nav-dropdown-button-drop-end"
-          key="end"
-        drop="end"
-          title={item.name}
-          menuVariant="light"
-        >
-          <NavDropdown.Item   href="/fanlar">Silabus</NavDropdown.Item>
-          <NavDropdown.Item onClick={this.book} >Kitoblar</NavDropdown.Item>
-          <NavDropdown.Item  href="/fanlar">Taqdimotlar</NavDropdown.Item>
-          <NavDropdown.Item  href="/fanlar">Loyihalar</NavDropdown.Item>
-          <NavDropdown.Item  href="/fanlar">Taqdimotlar</NavDropdown.Item>
-          <NavDropdown.Item  href="/fanlar">Maqolalar</NavDropdown.Item>
-        </NavDropdown>
+                                <NavDropdown
+                                  id="nav-dropdown-button-drop-end"
+                                  key="end"
+                                  drop="end"
+                                  title={item.name}
+                                  menuVariant="light"
+                                >
+                                  <NavDropdown.Item href="#action/3.1">
+                                    Silabus
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item href="#action/3.2">
+                                    Kitoblar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item href="#action/3.3">
+                                    Taqdimotlar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item href="#action/3.3">
+                                    Loyihalar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item href="#action/3.3">
+                                    Taqdimotlar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item href="#action/3.3">
+                                    Maqolalar
+                                  </NavDropdown.Item>
+                                </NavDropdown>
+        
                               </Link>
                             </div>
                           );
@@ -396,13 +414,11 @@ console.log(this.state.malumot)
                 <div>
                   <div className="mt-5 mb-5 fan1">
                     <h1 className={style1.text}>
-                    
-                   
-                            <div className='my-2' id="demo11">
-                            <h1>{this.state.nomi}</h1>
-                            </div>
-                        
-                       </h1>
+                      <div className="my-2" id="demo11">
+                        {this.state.nomi}
+                      </div>
+                    </h1>
+                  
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8" id="accordionExample">
@@ -458,54 +474,58 @@ console.log(this.state.malumot)
                             {this.state.natija}
                           </p>
                         </div>
-                        <div className={style1.card11}>
-                          <h5>
-                            <div style={{ display: "flex" }}>
-                              {this.state.natija >= 1 ? (
-                                <FaStar style={{ color: "yellow" }} />
-                              ) : (
-                                <FaStar style={{ color: "black" }} />
-                              )}
-                              {this.state.natija >= 2 ? (
-                                <FaStar style={{ color: "yellow" }} />
-                              ) : (
-                                <FaStar style={{ color: "black" }} />
-                              )}
-                              {this.state.natija >= 3 ? (
-                                <FaStar style={{ color: "yellow" }} />
-                              ) : (
-                                <FaStar style={{ color: "black" }} />
-                              )}
-                              {this.state.natija >= 4 ? (
-                                <FaStar style={{ color: "yellow" }} />
-                              ) : (
-                                <FaStar style={{ color: "black" }} />
-                              )}
-                              {this.state.natija == 4.6 ? (
-                                <FaStar style={{ color: "yellow" }} />
-                              ) : (
-                                <FaStar style={{ color: "black" }} />
-                              )}{" "}
-                              <p
-                                style={{ marginLeft: "30px", fontSize: "20px" }}
-                              >
-                                {this.state.natija}
-                              </p>
-                            </div>
-                          </h5>
-                          <p>
-                            rahmat domla borizga shukur yaxshiyam siz borsiz{" "}
-                          </p>
-                          <p
-                            style={{
-                              position: "absolute",
-                              bottom: "10px",
-                              right: "30px",
-                            }}
-                          >
-                            12-12-1998
-                          </p>
-                        </div>
+                        {umumiyIzoh.map((item, index) => (
+                          <div className={style1.card11} key={index}>
+                            <h5>
+                              <div style={{ display: "flex" }}>
+                                {item.rate >= 1 ? (
+                                  <FaStar style={{ color: "yellow" }} />
+                                ) : (
+                                  <FaStar style={{ color: "black" }} />
+                                )}
+                                {item.rate >= 2 ? (
+                                  <FaStar style={{ color: "yellow" }} />
+                                ) : (
+                                  <FaStar style={{ color: "black" }} />
+                                )}
+                                {item.rate >= 3 ? (
+                                  <FaStar style={{ color: "yellow" }} />
+                                ) : (
+                                  <FaStar style={{ color: "black" }} />
+                                )}
+                                {item.rate >= 4 ? (
+                                  <FaStar style={{ color: "yellow" }} />
+                                ) : (
+                                  <FaStar style={{ color: "black" }} />
+                                )}
+                                {item.rate >= 4.6 ? (
+                                  <FaStar style={{ color: "yellow" }} />
+                                ) : (
+                                  <FaStar style={{ color: "black" }} />
+                                )}{" "}
+                                <p
+                                  style={{
+                                    marginLeft: "30px",
+                                    fontSize: "20px",
+                                  }}
+                                >
+                                  {item.rate}
+                                </p>
+                              </div>
+                            </h5>
+                            <p>{item.comment}</p>
+                            <p
+                              style={{
+                                position: "absolute",
+                                bottom: "10px",
+                                right: "30px",
+                              }}
+                            >
+                              {item.date_added}
+                              
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
@@ -529,38 +549,44 @@ console.log(this.state.malumot)
                           <Form className="p-3" onSubmit={this.submitHandler}>
                             <div className="mb-3">
                               Baholash
-                              <div className={style1.star} onChange={this.changeHandler}>
+                              <div
+                                className={style1.star}
+                                // onChange={this.changeHandler}
+                              >
                                 <FaStar
                                   id="star1"
                                   onClick={() => this.star1()}
-                                  onChange={this.changeHandler}
+                                  // onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star2"
                                   onClick={() => this.star2()}
-                                  onChange={this.changeHandler}
+                                  // onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star3"
                                   onClick={() => this.star3()}
-                                  onChange={this.changeHandler}
+                                  // onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star4"
                                   onClick={() => this.star4()}
-                                  onChange={this.changeHandler}
+                                  // onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star5"
                                   onClick={() => this.star5()}
-                                  onChange={this.changeHandler}
+                                  // onChange={this.changeHandler}
                                 />{" "}
-                                <p style={{ paddingLeft: "10px" }}>
+                                <p
+                                  style={{ paddingLeft: "10px" }}
+                                  onChange={this.changeHandler}
+                                >
                                   {this.state.star} ball
                                 </p>
                               </div>
                             </div>
-                            <Form.Group controlId="message" className="mb-3">
+                            <Form.Group controlId="comment" className="mb-3">
                               <Form.Label>
                                 {uzLang
                                   ? "Shaxsiy fikringizni bildiring."
@@ -579,7 +605,6 @@ console.log(this.state.malumot)
                               />
                             </Form.Group>
                             <Button
-                              
                               variant="success"
                               type="submit"
                               className="float-end"
@@ -592,7 +617,6 @@ console.log(this.state.malumot)
                             </Button>
                             <Button
                               variant="success"
-                              type="reset"
                               className="mx-2 float-end"
                             >
                               {uzLang
@@ -625,4 +649,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { uzLanguege, ruLanguege, enLanguege })(
   Navbar1
-);
+)
