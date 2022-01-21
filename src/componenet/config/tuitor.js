@@ -5,6 +5,7 @@ export let saveTuitor = (uz,en) => {
     url: uz? `${host}/me/`:en?`${hosten}/me/`:`${hostru}/me/`,
     method: "GET",
   };
+  console.log("save Tuitor")
   return HttpRequest(config);
 }
 
@@ -13,6 +14,7 @@ export let saveArticles = (uz,en) => {
     url: uz? `${host}/articles/`:en?`${hosten}/articles/`:`${hostru}/articles/`,
     method: "GET",
   };
+  console.log("save Articles")
   return HttpRequest(config);
 }
 

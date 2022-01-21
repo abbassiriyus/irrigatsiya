@@ -141,28 +141,14 @@ console.log(this.state.malumot)
   };
 
 
-  submitHandler=(e)=>{
-    e.preventDefault()
-  //  console.log(this.state)  
-    const user = {
-      izohlar: this.state.izohlar,
-    };
-    axios
-      .post("https://admin.credence.uz/uz/comments/", user)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
 
   getBaholash = () => {
     saveBaholash()
       .then((res) => {
         console.log(res);
         this.setState({
-          umumiyIzoh: res.data,
+          umumiyIzoh: res.data.comments,
         });
       })
       .catch((res) => {
