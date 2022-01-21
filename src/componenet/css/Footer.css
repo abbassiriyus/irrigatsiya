@@ -1,105 +1,104 @@
-footer{
-    background: url('https://wallpapercave.com/wp/wp2757874.gif');
-        color: gainsboro;
-        background-size: 100% 100%;
-    }
-    footer .row{
-    
-    }
-    footer .mycol4 ul li{
-        list-style-type: none;
-        padding: 0;
-        border-bottom: 1px solid gray;
-        padding: 10px 0;
-    }
-    footer .mycol4 ul li a{
-        color: gainsboro;
-    }
-    footer .mycol4 ul li a:hover{
-        color: white;
-        text-decoration: underline;
-    }
-    footer .bottom{
-        border-bottom: 2px solid white;
-        width: 80px;
-    }
-    footer h6{
-        color: white;
-    
-    }
-    footer .mycontact{
-        display: block !important;
-    }
-    footer .myicon{
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        margin-right: 10px;
-        padding-top: 8px;
-        background-color: #303030;
-    }
-    footer .section-footer{
-        background-color: #111111;
-    }
-    footer .section-footer p {
-        font-size: 18px;
-    }
-    .footericons{
-        display: flex;
-        justify-content: flex-end;
-    }
-    .footericons a{
-        color: white;
-        margin-right: 20px;
-        font-size: 20px;
-    }
-    .footericons a i{
-        font-size: 26px;
-    }
-    .footericons a:hover{
-        color: #198754;
-    }
-    .post{
-        color: white;
-    }
-    footer .myform{
-        color: white;
-        border: none;
-    }
-    footer .myform input{
-        background: transparent !important;
-        color: white !important;
-    }
-    footer .myform textarea{
-        background: transparent !important;
-        color: white !important;
-    }
-    footer .myform input::placeholder{
-        color: white !important;
-        background-color: transparent !important;
-    }
-    footer .maps{
-        color: white;
-    }
-    @media only screen and (max-width: 600px) {
-        
-        .contacts p{
-            font-size: 13px;
-        }
-        .row-footer{
-            display: flex !important;
-            justify-content: center !important;
-        }
-        .footericons{
-            display: flex !important;
-            justify-content: center !important;
-        }
-      }
-      @media only screen and (min-width: 600px) {
-        .row-footer{
-            padding: 40px;
-            box-sizing: border-box;
-        }
-        
-        
-      }
+footer {
+  background: url("https://wallpapercave.com/wp/wp2757874.gif");
+  color: gainsboro;
+  background-size: 100% 100%;
+}
+footer .row {
+}
+footer .mycol4 ul li {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid gray;
+  padding: 10px 0;
+}
+footer .mycol4 ul li a {
+  color: gainsboro;
+}
+footer .mycol4 ul li a:hover {
+  color: white;
+  text-decoration: underline;
+}
+footer .bottom {
+  border-bottom: 2px solid white;
+  width: 80px;
+}
+footer h6 {
+  color: white;
+}
+footer .mycontact {
+  display: block !important;
+}
+footer .myicon {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  margin-right: 10px;
+  padding-top: 8px;
+  background-color: #303030;
+}
+footer .section-footer {
+  background-color: #111111;
+}
+footer .section-footer p {
+  font-size: 18px;
+}
+.footericons {
+  display: flex;
+  justify-content: flex-end;
+}
+.footericons a {
+  color: white;
+  margin-right: 20px;
+  font-size: 20px;
+}
+.card77 {
+  margin: 20px;
+  height: 100px;    
+}
+.footericons a i {
+  font-size: 26px;
+}
+.footericons a:hover {
+  color: #198754;
+}
+.post {
+  color: white;
+}
+footer .myform {
+  color: white;
+  border: none;
+}
+footer .myform input {
+  background: transparent !important;
+  color: white !important;
+}
+footer .myform textarea {
+  background: transparent !important;
+  color: white !important;
+}
+footer .myform input::placeholder {
+  color: white !important;
+  background-color: transparent !important;
+}
+footer .maps {
+  color: white;
+}
+@media only screen and (max-width: 600px) {
+  .contacts p {
+    font-size: 13px;
+  }
+  .row-footer {
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .footericons {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .row-footer {
+    padding: 40px;
+    box-sizing: border-box;
+  }
+}

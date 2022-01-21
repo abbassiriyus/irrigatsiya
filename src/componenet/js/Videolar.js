@@ -22,7 +22,7 @@ class Videolar extends Component {
     };
     this.handlePageClick = this.handlePageClick.bind(this);
   }
-  receivedData(uz,en) {
+  receivedData() {
     axios.get(`${host}/videos/`).then((res) => {
       const data = res.data;
       const slice = data.slice(
@@ -35,7 +35,7 @@ class Videolar extends Component {
             <video controls width="100%">
               <source src={item.file} type="video/mp4"></source>
             </video>
-            <h4>{item.name==null?" ":item.name}</h4>
+            <h4 className="text-center mt-2">{item.name==null?" ":item.name}</h4>
           </div>
         ) : (
           <div className={style1.card11} data-aos="zoom-in" data-aos-duration="3000">
@@ -48,7 +48,7 @@ class Videolar extends Component {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <h4>{item.name==null?" ":item.name}</h4>
+            <h4 className="text-center mt-2">{item.name==null?" ":item.name}</h4>
 
           </div>
         );

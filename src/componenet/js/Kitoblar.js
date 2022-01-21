@@ -49,7 +49,7 @@ class Kitoblar extends Component {
         ) : (
           <React.Fragment>
             <tr className="tables">
-              <td>{item.count}</td>
+              <td></td>
               <td>
                 <a>{item.name}</a>
               </td>

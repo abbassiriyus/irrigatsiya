@@ -28,8 +28,8 @@ class Navbar1 extends Component {
     star: 0,
     comment: "",
     key: 0,
-    nomi:'Aniq bir fani kitiring iltimos',
-    demo:0,
+    nomi: "Aniq bir fani kitiring iltimos",
+    demo: 0,
     natija: 4.4,
     umumiyIzoh: [],
     izohlar: {
@@ -104,6 +104,7 @@ class Navbar1 extends Component {
     });
     this.getBaholash();
   };
+<<<<<<< Updated upstream
  
   getMalumot=(key)=>{
 const result = this.state.data.filter(item => item.id==key);
@@ -132,21 +133,64 @@ console.log(this.state.malumot)
  
   
 
+=======
+>>>>>>> Stashed changes
 
+  getMalumot = (key) => {
+    const result = this.state.data.filter((item) => item.id == key);
+    this.setState({ malumot: result[0], nomi: result[0].name });
+    console.log(this.state.malumot);
+  };
+  book = () => {
+    document.querySelector("#accordionExample").innerHTML = " ";
 
-  
+    this.state.malumot.books.map((item) => {
+      document.querySelector(
+        "#accordionExample"
+      ).innerHTML += ` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
+            <div style="width: 80%;
+            border-radius: 20px;
+            padding: 20px;
+            background-color: rgba(0, 255, 255, 0.603);
+            display: block;">
+              nomi:${item.name}
+              <hr/>
+              <div style="margin:auto;text-align:center">${item.date_published}</div>
+              <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="padding:10px;border-radius:10px;">yuklab olish</button></a>
+            </div>
+            </div>`;
+    });
+  };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+<<<<<<< Updated upstream
 
 
+=======
+  submitHandler = (e) => {
+    e.preventDefault();
+    //  console.log(this.state)
+    const user = {
+      izohlar: this.state.izohlar,
+    };
+    axios
+      .post("https://admin.credence.uz/uz/comments/", user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+>>>>>>> Stashed changes
 
   getBaholash = () => {
     saveBaholash()
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         this.setState({
           umumiyIzoh: res.data.comments,
         });
@@ -315,7 +359,7 @@ console.log(this.state.malumot)
                           return (
                             <div>
                               <Link
-                              href="/fanlar"
+                                href="/fanlar"
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
@@ -329,7 +373,10 @@ console.log(this.state.malumot)
                                   <NavDropdown.Item href="#action/3.1">
                                     Silabus
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.2">
+                                  <NavDropdown.Item
+                                    onClick={this.book}
+                                    href="#action/3.2"
+                                  >
                                     Kitoblar
                                   </NavDropdown.Item>
                                   <NavDropdown.Item href="#action/3.3">
@@ -345,7 +392,6 @@ console.log(this.state.malumot)
                                     Maqolalar
                                   </NavDropdown.Item>
                                 </NavDropdown>
-        
                               </Link>
                             </div>
                           );
@@ -404,12 +450,10 @@ console.log(this.state.malumot)
                         {this.state.nomi}
                       </div>
                     </h1>
-                  
+
                     <div className="container">
                       <div className="row">
-                        <div className="col-lg-8" id="accordionExample">
-                  
-                        </div>
+                        <div className="col-lg-8" id="accordionExample"></div>
                         <div className="col-lg-4">
                           <Elon />
                         </div>
@@ -508,7 +552,6 @@ console.log(this.state.malumot)
                               }}
                             >
                               {item.date_added}
-                              
                             </p>
                           </div>
                         ))}
@@ -635,4 +678,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, { uzLanguege, ruLanguege, enLanguege })(
   Navbar1
-)
+);
