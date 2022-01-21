@@ -127,34 +127,40 @@ class Navbar1 extends Component {
     <div style="margin:auto;text-align:center">${item.date_published}</div>
     <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
   </div>
-  </div>`;
-    });
+
+  </div>`
+});
+
+};
+ 
+handleChange1 = event => {
+  this.setState({ comment: event.target.value });
+}
+
+handleSubmit1 = event => {
+  event.preventDefault();
+
+  const user = {
+   "rate":this.state.star,
+   "comment":this.state.comment
   };
 
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  axios.post(`https://admin.credence.uz/uz/comments/`, user)
+    .then(res => {
+      console.log(res);
+      console.log(res.data, user);
+    }).catch(err=>{
+      console.log("xato");
+      console.log(user);
+    })
+}
 
-  submitHandler = (e) => {
-    e.preventDefault();
-    //  console.log(this.state)
-    const user = {
-      izohlar: this.state.izohlar,
-    };
-    axios
-      .post("https://admin.credence.uz/uz/comments/", user)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+
+
 
   getBaholash = () => {
     saveBaholash()
       .then((res) => {
-        console.log(res.data.rating);
         this.setState({
           umumiyIzoh: res.data.comments,
           natija:res.data
@@ -543,47 +549,46 @@ class Navbar1 extends Component {
                               aria-label="Close"
                             ></button>
                           </div>
-                          <Form className="p-3" onSubmit={this.submitHandler}>
+                          <Form className="p-3" onSubmit={this.handleSubmit1}>
                             <div className="mb-3">
                               Baholash
                               <div
                                 className={style1.star}
-                                // onChange={this.changeHandler}
+                                
                               >
                                 <FaStar
                                   id="star1"
                                   onClick={() => this.star1()}
-                                  // onChange={this.changeHandler}
+                                  
                                 />
                                 <FaStar
                                   id="star2"
                                   onClick={() => this.star2()}
-                                  // onChange={this.changeHandler}
+                                  
                                 />
                                 <FaStar
                                   id="star3"
                                   onClick={() => this.star3()}
-                                  // onChange={this.changeHandler}
+                                  
                                 />
                                 <FaStar
                                   id="star4"
                                   onClick={() => this.star4()}
-                                  // onChange={this.changeHandler}
+                                  
                                 />
                                 <FaStar
                                   id="star5"
                                   onClick={() => this.star5()}
-                                  // onChange={this.changeHandler}
+                                  
                                 />{" "}
                                 <p
                                   style={{ paddingLeft: "10px" }}
-                                  onChange={this.changeHandler}
                                 >
                                   {this.state.star} ball
                                 </p>
                               </div>
                             </div>
-                            <Form.Group controlId="comment" className="mb-3">
+                            <Form.Group controlId="comment" className="mb-3" onSubmit={this.handleSubmit1}>
                               <Form.Label>
                                 {uzLang
                                   ? "Shaxsiy fikringizni bildiring."
@@ -592,7 +597,7 @@ class Navbar1 extends Component {
                                   : "Сообщение"}
                               </Form.Label>
                               <Form.Control
-                                onChange={this.changeHandler}
+                              onChange={this.handleChange1}
                                 as="textarea"
                                 name="comment"
                                 rows={3}
@@ -605,6 +610,7 @@ class Navbar1 extends Component {
                               variant="success"
                               type="submit"
                               className="float-end"
+                              data-bs-dismiss="modal"
                             >
                               {uzLang
                                 ? "Jo`natish"
@@ -615,6 +621,7 @@ class Navbar1 extends Component {
                             <Button
                               variant="success"
                               className="mx-2 float-end"
+                              data-bs-dismiss="modal"
                             >
                               {uzLang
                                 ? "Tozalash"
