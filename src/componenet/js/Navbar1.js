@@ -126,7 +126,7 @@ console.log(this.state.malumot)
     nomi:${item.name}
     <hr/>
     <div style="margin:auto;text-align:center">${item.date_published}</div>
-    <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="padding:10px;border-radius:10px;">yuklab olish</button></a>
+    <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
   </div>
   </div>`
 })
