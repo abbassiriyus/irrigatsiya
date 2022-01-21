@@ -110,29 +110,198 @@ class Navbar1 extends Component {
     this.setState({ malumot: result[0], nomi: result[0].name });
     console.log(this.state.malumot);
   };
-  book = () => {
+ 
+ 
+ 
+
+
+// fan namuna
+  syllabuys = () => {
     document.querySelector("#accordionExample").innerHTML = " ";
 
-    this.state.malumot.books.map((item) => {
+    this.state.malumot.syllabuys.map((item) => {
       document.querySelector(
         "#accordionExample"
-      ).innerHTML += ` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
   <div style="width: 80%;
-  border-radius: 20px;
+  border-radius: 20px;margin:auto;text-align:center;
   padding: 20px;
   background-color: rgba(0, 255, 255, 0.603);
   display: block;">
-    nomi:${item.name}
+    ${item.name}
     <hr/>
     <div style="margin:auto;text-align:center">${item.date_published}</div>
     <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
   </div>
-
   </div>`
 });
-
 };
- 
+mustaqiltalim= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.mustaqiltalim.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+
+maruzavaprezentatsiyalar= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.maruzavaprezentatsiyalar.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+laboratoriyaishlari= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.laboratoriyaishlari.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+amaliydarsmateriallari= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.amaliydarsmateriallari.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+hisobgrafikishlar= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.hisobgrafikishlar.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+kursishlari= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.kursishlari.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+topshiriqlar= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.topshiriqlar.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+qoshimchahujjatlar= () => {
+  document.querySelector("#accordionExample").innerHTML = " ";
+
+  this.state.malumot.qoshimchahujjatlar.map((item) => {
+    document.querySelector(
+      "#accordionExample"
+    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_published}</div>
+  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`
+});
+};
+
+
+
+
+
 handleChange1 = event => {
   this.setState({ comment: event.target.value });
 }
@@ -335,32 +504,47 @@ handleSubmit1 = event => {
                                 onClick={() => this.getMalumot(item.id)}
                               >
                                 <NavDropdown
+                                 className={style1.dropbtn}
                                   id="nav-dropdown-button-drop-end"
                                   key="end"
                                   drop="end"
                                   title={item.name}
-                                  menuVariant="light"
                                 >
-                                  <NavDropdown.Item href="#action/3.1">
-                                    Silabus
+                                  <NavDropdown.Item 
+                                   onClick={this.syllabuys}
+                                  href="#action/3.1">
+                                  syllabuys
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
-                                    onClick={this.book}
+                                    onClick={this.mustaqiltalim}
                                     href="#action/3.2"
                                   >
-                                    Kitoblar
+                                    mustaqil talim
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.3">
-                                    Taqdimotlar
+                                  <NavDropdown.Item 
+                                    onClick={this.maruzavaprezentatsiyalar}
+                                  href="#action/3.3">
+                                    maruza va prezentatsiyalar
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.3">
-                                    Loyihalar
+                                  <NavDropdown.Item  
+                                    onClick={this.laboratoriyaishlari}
+                                  href="#action/3.3">
+                                    laboratoriya ishlari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.3">
-                                    Taqdimotlar
+                                  <NavDropdown.Item  onClick={this.amaliydarsmateriallari} href="#action/3.3">
+                                  amaliy dars materiallari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item href="#action/3.3">
-                                    Maqolalar
+                                  <NavDropdown.Item  onClick={this.hisobgrafikishlar} href="#action/3.3">
+                                  hisob grafik ishlar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item  onClick={this.kursishlari} href="#action/3.3">
+                                  kurs ishlari
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item  onClick={this.topshiriqlar} href="#action/3.3">
+                                  topshiriqlar
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item  onClick={this.qoshimchahujjatlar} href="#action/3.3">
+                                  qoshimcha hujjatlar
                                   </NavDropdown.Item>
                                 </NavDropdown>
                               </Link>
@@ -405,7 +589,6 @@ handleSubmit1 = event => {
 
           <Routes>
             <Route exact path="/" element={<Section />} />
-            <Route path="*" element={<Navigate to="/" />} />
             <Route path="/Maqolalar" element={<Maqolalar />} />
             <Route path="/Kitoblar" element={<Kitoblar />} />
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
@@ -468,11 +651,11 @@ handleSubmit1 = event => {
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          {natija.rating == 4.6 ? (
+                          {natija.rating >= 4.6 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
-                          )}{" "}
+                          )}
                           <p style={{ marginLeft: "10px" }}>
                             {natija.rating}
                             {console.log(natija.rating)}
@@ -549,7 +732,7 @@ handleSubmit1 = event => {
                               aria-label="Close"
                             ></button>
                           </div>
-                          <Form className="p-3" onSubmit={this.handleSubmit1}>
+                          <Form className="p-3" >
                             <div className="mb-3">
                               Baholash
                               <div
@@ -611,6 +794,7 @@ handleSubmit1 = event => {
                               type="submit"
                               className="float-end"
                               data-bs-dismiss="modal"
+                              onClick={this.handleSubmit1}
                             >
                               {uzLang
                                 ? "Jo`natish"
