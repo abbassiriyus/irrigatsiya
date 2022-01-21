@@ -27,13 +27,13 @@ class Navbar1 extends Component {
     malumot: {},
     star: 0,
     comment: "",
-    books: [],
+    book: [],
     articles: [],
-    projects: [],
+  projects: [],
     presentations: [],
     key: 0, 
     close: false,
-    nomi:'Fani kiriting',
+    nomi:'Aniq bir fani kitiring iltimos',
     demo:0,
     natija: 4.4,
       izohlar:{
@@ -110,10 +110,29 @@ class Navbar1 extends Component {
   };
   getMalumot=(key)=>{
 const result = this.state.data.filter(item => item.id==key);
-this.setState({malumot:result,nomi:result.name})
+this.setState({malumot:result[0] , nomi:result[0].name})
 console.log(this.state.malumot)
   }
+ book=()=>{
+  document.querySelector('#accordionExample').innerHTML=" "
 
+    this.state.malumot.books.map(item=>{
+  document.querySelector('#accordionExample').innerHTML+=` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
+  <div style="width: 80%;
+  border-radius: 20px;
+  padding: 20px;
+  background-color: rgba(0, 255, 255, 0.603);
+  display: block;">
+    nomi:${item.name}
+    <hr/>
+    <div style="margin:auto;text-align:center">${item.date_published}</div>
+    <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="padding:10px;border-radius:10px;">yuklab olish</button></a>
+  </div>
+  </div>`
+})
+
+}
+ 
   
 
 
@@ -125,7 +144,7 @@ console.log(this.state.malumot)
   };
   submitHandler=(e)=>{
     e.preventDefault()
-    // console.log(this.state)  
+  //  console.log(this.state)  
     const user = {
       comment:this.state.comment,
       star:this.state.star
@@ -305,6 +324,7 @@ console.log(this.state.malumot)
                           return (
                             <div>
                               <Link
+                              href="/fanlar"
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
@@ -315,12 +335,12 @@ console.log(this.state.malumot)
           title={item.name}
           menuVariant="light"
         >
-          <NavDropdown.Item href="#action/3.1">Silabus</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">Kitoblar</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Taqdimotlar</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Loyihalar</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Taqdimotlar</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.3">Maqolalar</NavDropdown.Item>
+          <NavDropdown.Item   href="/fanlar">Silabus</NavDropdown.Item>
+          <NavDropdown.Item onClick={this.book} >Kitoblar</NavDropdown.Item>
+          <NavDropdown.Item  href="/fanlar">Taqdimotlar</NavDropdown.Item>
+          <NavDropdown.Item  href="/fanlar">Loyihalar</NavDropdown.Item>
+          <NavDropdown.Item  href="/fanlar">Taqdimotlar</NavDropdown.Item>
+          <NavDropdown.Item  href="/fanlar">Maqolalar</NavDropdown.Item>
         </NavDropdown>
                               </Link>
                             </div>
@@ -370,7 +390,6 @@ console.log(this.state.malumot)
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
             <Route path="/loyihalar" element={<Loyihalar />} />
             <Route path="/videolar" element={<Videolar />} />
-            <Route render={() => <Navigate to="/" />} />
             <Route
               path="/fanlar"
               element={
@@ -380,234 +399,14 @@ console.log(this.state.malumot)
                     
                    
                             <div className='my-2' id="demo11">
-                              {this.state.nomi}
-                              
+                            <h1>{this.state.nomi}</h1>
                             </div>
                         
                        </h1>
                     <div className="container">
                       <div className="row">
-                        <div className="col-lg-8">
-                        <div className="accordion" id="accordionExample">
-                               <div className="accordion-item">
-                              <h2 className="accordion-header" id="headingTwo">
-                                <button
-                                  className="accordion-button collapsed"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target="#collapseTwo"
-                                  aria-expanded="false"
-                                  aria-controls="collapseTwo"
-                                >
-                                  {uzLang
-                                    ? "Maqolalar"
-                                    : enLang
-                                    ? "Articles"
-                                    : "Cтатьи"}
-                                </button>
-                              </h2>
-                              <div
-                                id="collapseTwo"
-                                className="accordion-collapse collapse"
-                                aria-labelledby="headingTwo"
-                                data-bs-parent="#accordionExample"
-                              >
-                                <div className="accordion-body">
-                                  {this.state.articles.length == 0 ? (
-                                    <h5>
-                                      {uzLang
-                                        ? "hozircha malumot topilmadi"
-                                        : enLang
-                                        ? "No information found yet"
-                                        : "Информация пока не найдена"}
-                                    </h5>
-                                ) : (
-                                    this.state.articles.map((item) => {
-                                      return (
-                                        <table className="table table-striped">
-                                          <thead>{item.name}</thead>
-                                          <tbody>
-                                            {item.slug}
-                                            <a
-                                              href={
-                                                `https://admin.credence.uz/en/subjects/${this.state.key}/` +
-                                                `${item.file}`
-                                              }
-                                            >
-                                              {uzLang
-                                                ? " yuklab olish"
-                                                : enLang
-                                                ? " download"
-                                                : "  скачать"}
-                                            </a>
-                                            <tr>
-                                              <td colspan="4">
-                                                <table className="table mb-0">
-                                                  {item.file}
-                                                </table>
-                                              </td>
-                                            </tr>
-                                            {item.date_published}
-                                          </tbody>
-                                        </table>
-                                      );
-                                    })
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            {/*<div className="accordion-item">
-                              <h2 className="accordion-header" id="headingOne">
-                                <button
-                                  className="accordion-button"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target="#collapseOne"
-                                  aria-expanded="true"
-                                  aria-controls="collapseOne"
-                                >
-                                  {uzLang
-                                    ? "Kitoblar"
-                                    : enLang
-                                    ? "Books"
-                                    : "Книги"}
-                                </button>
-                              </h2>
-                              <div
-                                id="collapseOne"
-                                className="accordion-collapse collapse show"
-                                aria-labelledby="headingOne"
-                                data-bs-parent="#accordionExample"
-                              >
-                                <div className="accordion-body">
-                                  {this.state.books.length == 0 ? (
-                                    <h5>hozrcha malumot topilmadi</h5>
-                                  ) : (
-                                    this.state.books.map((item) => {
-                                      return (
-                                        <table className="table table-striped">
-                                          <thead>{item.slug}</thead>
-                                          <tbody>
-                                            {item.name}
-                                            <tr>
-                                              <td colspan="4">
-                                                <table className="table mb-0">
-                                                  {item.file}
-                                                </table>
-                                              </td>
-                                            </tr>
-                                            {item.date_published}
-                                          </tbody>
-                                        </table>
-                                      );
-                                    })
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="accordion-item">
-                              <h2
-                                className="accordion-header"
-                                id="headingThree"
-                              >
-                                <button
-                                  className="accordion-button collapsed"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target="#collapseThree"
-                                  aria-expanded="false"
-                                  aria-controls="collapseThree"
-                                >
-                                  {uzLang
-                                    ? "Taqdimotlar"
-                                    : enLang
-                                    ? "Presentations"
-                                    : "Презентации"}
-                                </button>
-                              </h2>
-                              <div
-                                id="collapseThree"
-                                className="accordion-collapse collapse"
-                                aria-labelledby="headingThree"
-                                data-bs-parent="#accordionExample"
-                              >
-                                <div className="accordion-body">
-                                  {this.state.presentations.length == 0 ? (
-                                    <h5>hozrcha malumot topilmadi</h5>
-                                  ) : (
-                                    this.state.presentations.map((item) => {
-                                      return (
-                                        <table className="table table-striped">
-                                          <thead>{item.slug}</thead>
-                                          <tbody>
-                                            {item.name}
-                                            <tr>
-                                              <td colspan="4">
-                                                <table className="table mb-0">
-                                                  {item.file}
-                                                </table>
-                                              </td>
-                                            </tr>
-                                            {item.date_published}
-                                          </tbody>
-                                        </table>
-                                      );
-                                    })
-                                  )}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="accordion-item">
-                              <h2 className="accordion-header" id="headingFour">
-                                <button
-                                  className="accordion-button collapsed"
-                                  type="button"
-                                  data-bs-toggle="collapse"
-                                  data-bs-target="#collapseFour"
-                                  aria-expanded="false"
-                                  aria-controls="collapseFour"
-                                >
-                                  {uzLang
-                                    ? "Loyihalar"
-                                    : enLang
-                                    ? "Projects"
-                                    : "Проекты"}
-                                </button>
-                              </h2>
-                              <div
-                                id="collapseFour"
-                                className="accordion-collapse collapse"
-                                aria-labelledby="headingFour"
-                                data-bs-parent="#accordionExample"
-                              >
-                                <div className="accordion-body">
-                                  {this.state.projects.length == 0 ? (
-                                    <h5>hozrcha malumot topilmadi</h5>
-                                  ) : (
-                                    this.state.projects.map((item) => {
-                                      return (
-                                        <table className="table table-striped">
-                                          <thead>{item.slug}</thead>
-                                          <tbody>
-                                            {item.name}
-                                            <tr>
-                                              <td colspan="4">
-                                                <table className="table mb-0">
-                                                  {item.file}
-                                                </table>
-                                              </td>
-                                            </tr>
-                                            {item.date_published}
-                                          </tbody>
-                                        </table>
-                                      );
-                                    })
-                                  )}
-                                </div>
-                              </div>
-                            </div>*/}
-                          </div> 
+                        <div className="col-lg-8" id="accordionExample">
+                  
                         </div>
                         <div className="col-lg-4">
                           <Elon />
