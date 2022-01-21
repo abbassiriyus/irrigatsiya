@@ -104,7 +104,6 @@ class Navbar1 extends Component {
     });
     this.getBaholash();
   };
-<<<<<<< Updated upstream
  
   getMalumot=(key)=>{
 const result = this.state.data.filter(item => item.id==key);
@@ -133,43 +132,13 @@ console.log(this.state.malumot)
  
   
 
-=======
->>>>>>> Stashed changes
-
-  getMalumot = (key) => {
-    const result = this.state.data.filter((item) => item.id == key);
-    this.setState({ malumot: result[0], nomi: result[0].name });
-    console.log(this.state.malumot);
-  };
-  book = () => {
-    document.querySelector("#accordionExample").innerHTML = " ";
-
-    this.state.malumot.books.map((item) => {
-      document.querySelector(
-        "#accordionExample"
-      ).innerHTML += ` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
-            <div style="width: 80%;
-            border-radius: 20px;
-            padding: 20px;
-            background-color: rgba(0, 255, 255, 0.603);
-            display: block;">
-              nomi:${item.name}
-              <hr/>
-              <div style="margin:auto;text-align:center">${item.date_published}</div>
-              <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="padding:10px;border-radius:10px;">yuklab olish</button></a>
-            </div>
-            </div>`;
-    });
-  };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-<<<<<<< Updated upstream
 
 
-=======
   submitHandler = (e) => {
     e.preventDefault();
     //  console.log(this.state)
@@ -185,7 +154,6 @@ console.log(this.state.malumot)
         console.log(error);
       });
   };
->>>>>>> Stashed changes
 
   getBaholash = () => {
     saveBaholash()
