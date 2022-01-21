@@ -33,7 +33,10 @@
     padding: 0;
     border: 0;
   }
+
   #mybtn {
+    width: 100%;
+    height: auto;
     background-color: #3365a5;
     color: white;
     animation-name: example;

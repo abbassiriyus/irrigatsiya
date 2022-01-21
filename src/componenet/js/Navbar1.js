@@ -26,15 +26,19 @@ class Navbar1 extends Component {
     data: [],
     malumot: {},
     star: 0,
+    comment: "",
     books: [],
     articles: [],
     projects: [],
     presentations: [],
     key: 0,
-    comment: "",
     natija: 4.4,
-    close: false,
+      izohlar:{
+        star: 0,
+      comment: "",
+      }
   };
+  
 
   star1 = () => {
     this.setState({ star: 1 });
@@ -95,8 +99,8 @@ class Navbar1 extends Component {
     }
   };
 
-  getFan = (uz,en) => {
-    saveFansn(uz,en).then((res) => {
+  getFan = (uz, en) => {
+    saveFansn(uz, en).then((res) => {
       this.setState({ data: res.data });
     });
   };
@@ -119,39 +123,33 @@ class Navbar1 extends Component {
     });
     console.log(this.state.comment);
   };
-  putIzoh = () => {
-    var manba = {
-      rate: this.state.star,
-      comment: document.querySelector("#holl").value,
-    };
-    getPostsComments(manba)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((res) => {
-        console.log("error");
-      });
-  };
 
-  // addComments=(e)=>{
-  //   e.preventDefault();
-  //   const commentData = new commentData(e.target),
-  //   commentsDataObj=Object.commentEntries(commentData.entries());
-  //   getPostsComments(commentsDataObj).then((res)=>{
-  //     if (res && res.data) {
-  //       // toast.success('Yes')
-  //      alert('Yuborildi')
-  //     } else {
-  //       // toast.error('No')
-  //       alert('Yuborilmadi')
-  //     }
-  //   }).catch((res)=>{
-  //     alert("xato")
-  //   })
-  // }
+
+
+  
+
+  changeHandler = (e) => {
+    this.setState({[e.target.name]:e.target.value})
+  };
+  submitHandler=(e)=>{
+    e.preventDefault()
+    // console.log(this.state)  
+    const user = {
+      comment:this.state.comment,
+      star:this.state.star
+    }
+    axios.post('https://admin.credence.uz/uz/comments/').then(res=>{
+      console.log(res)
+    }).catch(error=>{
+      console.log(error);
+    })
+  }
+
+
+
 
   componentDidMount() {
-    this.getFan(this.props.uzLang,this.props.enLang);
+    this.getFan(this.props.uzLang, this.props.enLang);
   }
   render() {
     const { uzLang, enLang } = this.props;
@@ -307,7 +305,6 @@ class Navbar1 extends Component {
                         {this.state.data.map((item) => {
                           return (
                             <div>
-                              
                               <Link
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
@@ -355,10 +352,7 @@ class Navbar1 extends Component {
 
           <Routes>
             <Route exact path="/" element={<Section />} />
-            <Route
-        path="*"
-        element={<Navigate to="/" />}
-    />
+            <Route path="*" element={<Navigate to="/" />} />
             <Route path="/Maqolalar" element={<Maqolalar />} />
             <Route path="/Kitoblar" element={<Kitoblar />} />
             <Route path="/taqdimotlar" element={<Taqdimotlar />} />
@@ -370,15 +364,10 @@ class Navbar1 extends Component {
                 <div>
                   <div className="mt-5 mb-5 fan1">
                     <h1 className={style1.text}>
-                    { this.state.data.map((item) => {
-                          return (
-                            <div className='my-2'>
-                                {item.name}
-                              
-                            </div>
-                          );
-                        })}
-                       </h1>
+                      {this.state.data.map((item) => {
+                        return <div className="my-2">{item.name}</div>;
+                      })}
+                    </h1>
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8">
@@ -393,7 +382,11 @@ class Navbar1 extends Component {
                                   aria-expanded="false"
                                   aria-controls="collapseTwo"
                                 >
-                                  {uzLang?"Maqolalar":enLang?"Articles":"Cтатьи"}
+                                  {uzLang
+                                    ? "Maqolalar"
+                                    : enLang
+                                    ? "Articles"
+                                    : "Cтатьи"}
                                 </button>
                               </h2>
                               <div
@@ -404,7 +397,13 @@ class Navbar1 extends Component {
                               >
                                 <div className="accordion-body">
                                   {this.state.articles.length == 0 ? (
-                                    <h5>{uzLang?"hozircha malumot topilmadi":enLang?"No information found yet":"Информация пока не найдена"}</h5>
+                                    <h5>
+                                      {uzLang
+                                        ? "hozircha malumot topilmadi"
+                                        : enLang
+                                        ? "No information found yet"
+                                        : "Информация пока не найдена"}
+                                    </h5>
                                   ) : (
                                     this.state.articles.map((item) => {
                                       return (
@@ -418,7 +417,11 @@ class Navbar1 extends Component {
                                                 `${item.file}`
                                               }
                                             >
-                                              {uzLang?" yuklab olish":enLang?" download":"  скачать"}
+                                              {uzLang
+                                                ? " yuklab olish"
+                                                : enLang
+                                                ? " download"
+                                                : "  скачать"}
                                             </a>
                                             <tr>
                                               <td colspan="4">
@@ -446,7 +449,11 @@ class Navbar1 extends Component {
                                   aria-expanded="true"
                                   aria-controls="collapseOne"
                                 >
-                                  {uzLang?"Kitoblar":enLang?"Books":"Книги"}
+                                  {uzLang
+                                    ? "Kitoblar"
+                                    : enLang
+                                    ? "Books"
+                                    : "Книги"}
                                 </button>
                               </h2>
                               <div
@@ -496,10 +503,10 @@ class Navbar1 extends Component {
                                   aria-controls="collapseThree"
                                 >
                                   {uzLang
-                        ? "Taqdimotlar"
-                        : enLang
-                        ? "Presentations"
-                        : "Презентации"}
+                                    ? "Taqdimotlar"
+                                    : enLang
+                                    ? "Presentations"
+                                    : "Презентации"}
                                 </button>
                               </h2>
                               <div
@@ -544,7 +551,11 @@ class Navbar1 extends Component {
                                   aria-expanded="false"
                                   aria-controls="collapseFour"
                                 >
-                                  {uzLang ? "Loyihalar" : enLang ? "Projects" : "Проекты"}
+                                  {uzLang
+                                    ? "Loyihalar"
+                                    : enLang
+                                    ? "Projects"
+                                    : "Проекты"}
                                 </button>
                               </h2>
                               <div
@@ -682,7 +693,6 @@ class Navbar1 extends Component {
                       </div>
                     </div>
 
-
                     <div
                       className="modal fade"
                       id="exampleModal"
@@ -700,29 +710,34 @@ class Navbar1 extends Component {
                               aria-label="Close"
                             ></button>
                           </div>
-                          <Form className="p-3">
+                          <Form className="p-3" onSubmit={this.submitHandler}>
                             <div className="mb-3">
                               Baholash
-                              <div className={style1.star}>
+                              <div className={style1.star} onChange={this.changeHandler}>
                                 <FaStar
                                   id="star1"
                                   onClick={() => this.star1()}
+                                  onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star2"
                                   onClick={() => this.star2()}
+                                  onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star3"
                                   onClick={() => this.star3()}
+                                  onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star4"
                                   onClick={() => this.star4()}
+                                  onChange={this.changeHandler}
                                 />
                                 <FaStar
                                   id="star5"
                                   onClick={() => this.star5()}
+                                  onChange={this.changeHandler}
                                 />{" "}
                                 <p style={{ paddingLeft: "10px" }}>
                                   {this.state.star} ball
@@ -738,15 +753,17 @@ class Navbar1 extends Component {
                                   : "Сообщение"}
                               </Form.Label>
                               <Form.Control
+                                onChange={this.changeHandler}
                                 as="textarea"
-                                name="message"
+                                name="comment"
                                 rows={3}
                                 id="holl"
                                 placeholder="Murojat matni..."
+                                value={this.state.comment}
                               />
                             </Form.Group>
                             <Button
-                              onClick={this.putIzoh}
+                              
                               variant="success"
                               type="submit"
                               className="float-end"

@@ -38,7 +38,7 @@ import {enLanguege} from '../redux/Actions/enLanguege';
              alt="Profile images"
            />
          </div>
-          <div className="card-body">
+          <div className="card-body p-0">
             <button className="btn mybtn w-100" id={style4.mybtn}>
               <i className="fa fa-address-card mx-2"></i>{uzLang?"Profil":enLang?"Profile":"Профил"}
             </button>

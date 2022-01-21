@@ -17,6 +17,7 @@ class MultipleItems extends Component {
 
   getFotosLavha=()=>{
     fotosLavha().then((res)=>{
+      console.log(res.data)
       this.setState({
         fotoLavha:res.data
       })
@@ -40,8 +41,8 @@ class MultipleItems extends Component {
         <Carousel  showArrows={true}  autoPlay={true} interval={3000} centerMode={true} dynamicHeight={true} emulateTouch={true}>
           {fotoLavha.map((item,index)=>(
           <div className={s.mediasi} key={index}><div className={s.satr11}>
-            <h1>Faxriylar bilan uchrashuv</h1>
-            <p > kelgusida qiladigan ishlar tafsilotini o`zaro kelishib olindi</p></div>  
+            <h1>{item.name}</h1>
+            <p > {item.text}</p></div>  
 <img  src={item.image} style={{width:'100%',height:'100%'}}  className="card-img-top" alt="rasimlar topilmadi"/>
           </div>  
                    ))}
