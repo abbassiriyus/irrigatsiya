@@ -28,9 +28,9 @@ class Navbar1 extends Component {
     star: 0,
     comment: "",
     key: 0,
-    nomi: "Aniq bir fani kitiring iltimos",
+    nomi: "Barcha kitoblar",
     demo: 0,
-    natija: 4.4,
+    natija: 0,
     umumiyIzoh: [],
     izohlar: {
       star: 0,
@@ -104,17 +104,19 @@ class Navbar1 extends Component {
     });
     this.getBaholash();
   };
- 
-  getMalumot=(key)=>{
-const result = this.state.data.filter(item => item.id==key);
-this.setState({malumot:result[0] , nomi:result[0].name})
-console.log(this.state.malumot)
-  }
- book=()=>{
-  document.querySelector('#accordionExample').innerHTML=" "
 
-    this.state.malumot.books.map(item=>{
-  document.querySelector('#accordionExample').innerHTML+=` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
+  getMalumot = (key) => {
+    const result = this.state.data.filter((item) => item.id == key);
+    this.setState({ malumot: result[0], nomi: result[0].name });
+    console.log(this.state.malumot);
+  };
+  book = () => {
+    document.querySelector("#accordionExample").innerHTML = " ";
+
+    this.state.malumot.books.map((item) => {
+      document.querySelector(
+        "#accordionExample"
+      ).innerHTML += ` <div style="width:100% ; display:flex; justify-content:center;align-items:center;">
   <div style="width: 80%;
   border-radius: 20px;
   padding: 20px;
@@ -125,19 +127,13 @@ console.log(this.state.malumot)
     <div style="margin:auto;text-align:center">${item.date_published}</div>
     <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
   </div>
-  </div>`
-})
-
-}
- 
-  
-
+  </div>`;
+    });
+  };
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -158,9 +154,10 @@ console.log(this.state.malumot)
   getBaholash = () => {
     saveBaholash()
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.rating);
         this.setState({
           umumiyIzoh: res.data.comments,
+          natija:res.data
         });
       })
       .catch((res) => {
@@ -173,7 +170,7 @@ console.log(this.state.malumot)
   }
   render() {
     const { uzLang, enLang } = this.props;
-    const { umumiyIzoh } = this.state;
+    const { umumiyIzoh, natija} = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -421,7 +418,9 @@ console.log(this.state.malumot)
 
                     <div className="container">
                       <div className="row">
-                        <div className="col-lg-8" id="accordionExample"></div>
+                        <div className="col-lg-8" id="accordionExample">
+                          <Kitoblar />
+                        </div>
                         <div className="col-lg-4">
                           <Elon />
                         </div>
@@ -434,42 +433,43 @@ console.log(this.state.malumot)
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal"
                           >
-                            Izoh qoldirish
+                            {uzLang?"Izoh qoldirish":enLang?"Leave a comment":"Оставить комментарий"}
                           </button>
                         </div>
                       </div>
                       <div>
                         <h4 style={{ marginTop: "20px" }}>
-                          O`qituvchiga qoldirilgan izohlar
+                          {uzLang?"O`qituvchiga qoldirilgan izohlar":enLang?"Comments left to the teacher":"Комментарии оставлены учителю"}
                         </h4>
                         <div style={{ display: "flex" }}>
-                          {this.state.natija >= 1 ? (
+                          {natija.rating >= 1 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          {this.state.natija >= 2 ? (
+                          {natija.rating >= 2 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          {this.state.natija >= 3 ? (
+                          {natija.rating >= 3 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          {this.state.natija >= 4 ? (
+                          {natija.rating >= 4 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          {this.state.natija == 4.6 ? (
+                          {natija.rating == 4.6 ? (
                             <FaStar style={{ color: "yellow" }} />
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}{" "}
                           <p style={{ marginLeft: "10px" }}>
-                            {this.state.natija}
+                            {natija.rating}
+                            {console.log(natija.rating)}
                           </p>
                         </div>
                         {umumiyIzoh.map((item, index) => (
