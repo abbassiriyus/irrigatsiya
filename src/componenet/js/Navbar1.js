@@ -20,7 +20,7 @@ import Loyihalar from "./Loyihalar";
 import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
-import { Button, Form, NavDropdown, Table } from "react-bootstrap";
+import { Button, Container, Form, Nav, Navbar, NavDropdown, Table } from "react-bootstrap";
 import { saveBaholash, saveFansn } from "../config/tuitor";
 import ReactPaginate from "react-paginate";
 import s from "../css/Homepage.module.css";
@@ -461,6 +461,17 @@ handleSubmit1 = event => {
               </div>
             </div>
           </header>
+
+
+
+
+
+
+
+
+
+
+
           <nav className="navbar navbar-expand-lg navbar-light bg-success sticky-top">
             <div className="container py-2">
               <ul className="navbar-nav">
@@ -592,38 +603,38 @@ handleSubmit1 = event => {
                                 >
                                   <NavDropdown.Item 
                                    onClick={this.syllabuys}
-                                  href="#action/3.1">
+                                  href="/fanlar">
                                   syllabuys
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
                                     onClick={this.mustaqil_talim}
-                                    href="#action/3.2"
+                                    href="/fanlar"
                                   >
                                     mustaqil talim
                                   </NavDropdown.Item>
                                   <NavDropdown.Item 
                                     onClick={this.maruza_va_prezentatsiyalar}
-                                  href="#action/3.3">
+                                  href="/fanlar">
                                     maruza va prezentatsiyalar
                                   </NavDropdown.Item>
                                   <NavDropdown.Item  
                                     onClick={this.laboratoriya_ishlari}
-                                  href="#action/3.3">
+                                  href="/fanlar">
                                     laboratoriya ishlari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.amaliy_dars_materiallar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.amaliy_dars_materiallar} href="/fanlar">
                                   amaliy dars materiallari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.hisob_grafik_ishlar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.hisob_grafik_ishlar} href="/fanlar">
                                   hisob grafik ishlar
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.kursishlari} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.kursishlari} href="/fanlar">
                                   kurs ishlari
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.topshiriqlar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.topshiriqlar} href="/fanlar">
                                   topshiriqlar
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.qoshimcha_hujjatlar} href="#action/3.3">
+                                  <NavDropdown.Item  onClick={this.qoshimcha_hujjatlar} href="/fanlar">
                                   qoshimcha hujjatlar
                                   </NavDropdown.Item>
                                 </NavDropdown>
@@ -667,6 +678,13 @@ handleSubmit1 = event => {
             </div>
           </nav>
 
+
+
+
+
+         
+
+
           <Routes>
             <Route exact path="/" element={<Section />} />
             <Route path="/Maqolalar" element={<Maqolalar />} />
@@ -688,44 +706,13 @@ handleSubmit1 = event => {
                     <div className="container">
                       <div className="row">
                         <div className="col-lg-8" id="accordionExample">
-                        <p className={s.izoh}>
-                
-                <i className="fas fa-book"></i>  {uzLang?"Kitoblar ro'yxati":enLang?" List of Books":"Список книг"}
-              </p>
-              <Table
-                striped
-                bordered
-                hover
-                size="lg"
-                text="center"
-                className="tables"
-                id={s.tables}
-              >
-                <thead>
-                  <tr>
-                    <th>{uzLang?"MUQOVASI":enLang?"COVER":"ОБЛОЖКА"}</th>
-                    <th className='w-75'>{uzLang?"TO`LIQ NOMI":enLang?"FULL TITLE":"ПОЛЬНОЕ НАЗВАНИЕ"}</th>
-                    <th>{uzLang?"HAVOLA":enLang?"LINK":"ССЫЛКА"}</th>
-                  </tr>
-                </thead>
-                <tbody>{this.state.postData}</tbody>
-              </Table>
-              <div className="d-flex w-100% paginates" id={s. paginates}>
-                <ReactPaginate
-                  previousLabel={"prev"}
-                  nextLabel={"next"}
-                  breakLabel={"..."}
-                  breakClassName={"break-me"}
-                  pageCount={this.state.pageCount}
-                  marginPagesDisplayed={1}
-                  pageRangeDisplayed={3}
-                  onPageChange={this.handlePageClick}
-                  containerClassName={"pagination"}
-                  subContainerClassName={"pages pagination"}
-                  activeClassName={"active"}
-                  className={s.pagination}
-                />
-              </div>
+            
+
+
+
+            
+             
+             
                         </div>
                         <div className="col-lg-4">
                           <Elon />
