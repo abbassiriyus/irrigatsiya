@@ -20,7 +20,7 @@ import Loyihalar from "./Loyihalar";
 import Taqdimotlar from "./Taqdimotlar";
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
-import { Button, Container, Form, Nav, Navbar, NavDropdown, Table } from "react-bootstrap";
+import { Button, Form, NavDropdown, Table } from "react-bootstrap";
 import { saveBaholash, saveFansn } from "../config/tuitor";
 import ReactPaginate from "react-paginate";
 import s from "../css/Homepage.module.css";
@@ -588,22 +588,7 @@ ${item.name}
               </div>
             </div>
           </header>
-<<<<<<< Updated upstream
-
-
-
-
-
-
-
-
-
-
-
-          <nav className="navbar navbar-expand-lg navbar-light bg-success sticky-top">
-=======
           <nav className="navbar mystiky navbar-expand-lg navbar-light bg-success">
->>>>>>> Stashed changes
             <div className="container py-2">
               <ul className="navbar-nav">
                 <li id={style1.navitem} className="nav-item">
@@ -731,12 +716,6 @@ ${item.name}
                                   drop="end"
                                   title={item.name}
                                 >
-<<<<<<< Updated upstream
-                                  <NavDropdown.Item 
-                                   onClick={this.syllabuys}
-                                  href="/fanlar">
-                                  syllabuys
-=======
                                   <NavDropdown.Item
                                     onClick={this.syllabus}
                                     href="/fanlar"
@@ -746,11 +725,10 @@ ${item.name}
                                       : enLang
                                       ? "syllabuys"
                                       : "Учебные программы"}
->>>>>>> Stashed changes
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
                                     onClick={this.mustaqil_talim}
-                                    href="/fanlar"
+                                    href="#action/3.2"
                                   >
                                     {uzLang
                                       ? "Mustaqil talim"
@@ -760,10 +738,6 @@ ${item.name}
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
                                     onClick={this.maruza_va_prezentatsiyalar}
-<<<<<<< Updated upstream
-                                  href="/fanlar">
-                                    maruza va prezentatsiyalar
-=======
                                     href="/fanlar"
                                   >
                                     {uzLang
@@ -771,29 +745,9 @@ ${item.name}
                                       : enLang
                                       ? "Lectures and presentations"
                                       : "Лекции и презентации"}
->>>>>>> Stashed changes
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
                                     onClick={this.laboratoriya_ishlari}
-<<<<<<< Updated upstream
-                                  href="/fanlar">
-                                    laboratoriya ishlari
-                                  </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.amaliy_dars_materiallar} href="/fanlar">
-                                  amaliy dars materiallari
-                                  </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.hisob_grafik_ishlar} href="/fanlar">
-                                  hisob grafik ishlar
-                                  </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.kursishlari} href="/fanlar">
-                                  kurs ishlari
-                                  </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.topshiriqlar} href="/fanlar">
-                                  topshiriqlar
-                                  </NavDropdown.Item>
-                                  <NavDropdown.Item  onClick={this.qoshimcha_hujjatlar} href="/fanlar">
-                                  qoshimcha hujjatlar
-=======
                                     href="/fanlar"
                                   >
                                     {uzLang
@@ -851,7 +805,6 @@ ${item.name}
                                       : enLang
                                       ? "For students"
                                       : "Для студентов"}
->>>>>>> Stashed changes
                                   </NavDropdown.Item>
                                 </NavDropdown>
                               </Link>
@@ -894,13 +847,6 @@ ${item.name}
             </div>
           </nav>
 
-
-
-
-
-         
-
-
           <Routes>
             <Route exact path="/" element={<Section />} />
             <Route path="/Maqolalar" element={<Maqolalar />} />
@@ -922,16 +868,6 @@ ${item.name}
 
                     <div className="container">
                       <div className="row">
-<<<<<<< Updated upstream
-                        <div className="col-lg-8" id="accordionExample">
-            
-
-
-
-            
-             
-             
-=======
                         <div className="col-lg-8" id="funksiya">
                           <p className={s.izoh}>
                             <i className="fas fa-book"></i>{" "}
@@ -996,7 +932,6 @@ ${item.name}
                               className={s.pagination}
                             />
                           </div>
->>>>>>> Stashed changes
                         </div>
                         <div className="col-lg-4">
                           <Elon />
