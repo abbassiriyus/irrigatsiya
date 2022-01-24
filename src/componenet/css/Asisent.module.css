@@ -1,5 +1,4 @@
 #typedtext {
-  font-size: 34px;
   color: #3365a5;
 }
 #section1 {
@@ -11,12 +10,15 @@
   margin: 0;
 }
 .imgLogo {
-  margin: 20px;
+  /* margin: 20px; */
   height: 100px;
 }
 #myname {
   color: #3365a5;
-  font-size: 16px;
+  font-size: 22px;
+}
+#myname2 {
+  font-size: 18px;
 }
 
 #mycard {

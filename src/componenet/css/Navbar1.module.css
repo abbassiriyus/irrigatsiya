@@ -10,6 +10,10 @@ header{
     background-position: center;
     color: white;
 }
+.mystiky{
+    position: sticky;
+    top: 0;
+}
 
 header .logoh6 h6{
     line-height: 1.3;

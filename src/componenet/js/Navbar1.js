@@ -4,9 +4,9 @@ import { uzLanguege } from "../redux/Actions/uzLanguege";
 import { enLanguege } from "../redux/Actions/enLanguege";
 import { ruLanguege } from "../redux/Actions/ruLanguege";
 import { connect } from "react-redux";
-import { host } from "../config/host";
+import { host, host1 } from "../config/host";
 import axios from "axios";
-import {  hosten, hostru } from "../config/host";
+import { hosten, hostru } from "../config/host";
 import { saveBooks } from "../config/tuitor";
 import { FaStar } from "react-icons/fa";
 import style1 from "../css/Navbar1.module.css";
@@ -31,7 +31,6 @@ class Navbar1 extends Component {
     data: [],
     perPage: 10,
     currentPage: 0,
-    data: [],
     malumot: {},
     star: 0,
     comment: "",
@@ -47,26 +46,36 @@ class Navbar1 extends Component {
     },
   };
 
-
-
-
-
-  receivedData(uz,en) {
-    saveBooks(uz,en).then((res) => {
+  receivedData(uz, en) {
+    saveBooks(uz, en).then((res) => {
       const data = res.data;
       const slice = data.slice(
         this.state.offset,
         this.state.offset + this.state.perPage
       );
-      const postData = slice.map((item,uz,en) => {
+      const postData = slice.map((item, uz, en) => {
         return item.file != null ? (
           <React.Fragment>
             <tr className="tables">
               <td>{item.count}</td>
               <td>
-                <a download href={uz?`${host}/books/`+item.slug+"/download":en?`${hosten}/books/`+item.slug+"/download":`${hostru}/books/`+"/"+item.slug+"/download"}>
+                <a
+                  download
+                  href={
+                    uz
+                      ? `${host}/books/` + item.slug + "/download"
+                      : en
+                      ? `${hosten}/books/` + item.slug + "/download"
+                      : `${hostru}/books/` + "/" + item.slug + "/download"
+                  }
+                >
                   {item.name}
-                  <span className='badge badge-primary mydownload' id={s.mydownload}>download</span>
+                  <span
+                    className="badge badge-primary mydownload"
+                    id={s.mydownload}
+                  >
+                    download
+                  </span>
                 </a>
               </td>
               <td>
@@ -82,16 +91,18 @@ class Navbar1 extends Component {
                 <a>{item.name}</a>
               </td>
               <td>
-                <a href={item.link} className='links'>{this.uzLang?"Ochish":this.enLang?"View":"Открыть"}</a>
+                <a href={item.link} className="links">
+                  {this.uzLang ? "Ochish" : this.enLang ? "View" : "Открыть"}
+                </a>
               </td>
             </tr>
           </React.Fragment>
         );
-        });
+      });
       this.setState({
         pageCount: Math.ceil(data.length / this.state.perPage),
         postData,
-      })
+      });
     });
   }
   handlePageClick = (e) => {
@@ -107,16 +118,6 @@ class Navbar1 extends Component {
       }
     );
   };
-
-
-
-
-
-
-
-
-
-
 
   star1 = () => {
     this.setState({ star: 1 });
@@ -189,18 +190,14 @@ class Navbar1 extends Component {
     this.setState({ malumot: result[0], nomi: result[0].name });
     console.log(this.state.malumot);
   };
- 
- 
- 
 
+  // fan namuna
+  syllabus = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
 
-// fan namuna
-  syllabuys = () => {
-    document.querySelector("#accordionExample").innerHTML = " ";
-
-    this.state.malumot.syllabuys.map((item) => {
-      document.querySelector(
-        "#accordionExample"
+    this.state.malumot.syllabus.map((item) => {
+      return item.file !== null?( document.querySelector(
+        "#funksiya"
       ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
   <div style="width: 80%;
   border-radius: 20px;margin:auto;text-align:center;
@@ -209,19 +206,32 @@ class Navbar1 extends Component {
   display: block;">
     ${item.name}
     <hr/>
-    <div style="margin:auto;text-align:center">${item.date_published}</div>
-    <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+    <div style="margin:auto;text-align:center">${item.date_added}</div>
+    <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Yuklab olish</button></a>
   </div>
-  </div>`
-});
-};
-mustaqil_talim= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
+  </div>`):( document.querySelector(
+    "#funksiya"
+  ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a  href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+    });
+  };
+  mustaqil_talim = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
 
-  this.state.malumot.mustaqil_talim.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+    this.state.malumot.mustaqil_talim.map((item) => {
+      return item.file !== null? ( document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
 <div style="width: 80%;
 border-radius: 20px;margin:auto;text-align:center;
 padding: 20px;
@@ -229,189 +239,306 @@ background-color: rgba(0, 255, 255, 0.603);
 display: block;">
   ${item.name}
   <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
 </div>
-</div>`
-});
-};
-
-maruza_va_prezentatsiyalar= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.maruza_va_prezentatsiyalar.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+</div>`):(
+  document.querySelector(
+    "#funksiya"
+  ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
 <div style="width: 80%;
 border-radius: 20px;margin:auto;text-align:center;
 padding: 20px;
 background-color: rgba(0, 255, 255, 0.603);
 display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
 </div>
 </div>`
-});
-};
-laboratoriya_ishlari= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.laboratoriya_ishlari.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-amaliy_dars_materiallar= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.amaliy_dars_materiallar.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-hisob_grafik_ishlar= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.hisob_grafik_ishlar.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-kursishlari= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.kursishlari.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-topshiriqlar= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.topshiriqlar.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-qoshimcha_hujjatlar= () => {
-  document.querySelector("#accordionExample").innerHTML = " ";
-
-  this.state.malumot.qoshimcha_hujjatlar.map((item) => {
-    document.querySelector(
-      "#accordionExample"
-    ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
-<div style="width: 80%;
-border-radius: 20px;margin:auto;text-align:center;
-padding: 20px;
-background-color: rgba(0, 255, 255, 0.603);
-display: block;">
-  ${item.name}
-  <hr/>
-  <div style="margin:auto;text-align:center">${item.date_published}</div>
-  <a href="${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
-</div>
-</div>`
-});
-};
-
-
-
-
-
-handleChange1 = event => {
-  this.setState({ comment: event.target.value });
-}
-
-handleSubmit1 = event => {
-  event.preventDefault();
-
-  const user = {
-   "rate":this.state.star,
-   "comment":this.state.comment
+)
+     
+    });
   };
 
-  axios.post(`https://admin.credence.uz/uz/comments/`, user)
-    .then(res => {
-      console.log(res);
-      console.log(res.data, user);
-    }).catch(err=>{
-      console.log("xato");
-      console.log(user);
-    })
-}
+  maruza_va_prezentatsiyalar = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.maruza_va_prezentatsiyalar.map((item) => {
+      return item.file !== null? ( document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(
+  document.querySelector(
+    "#funksiya"
+  ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`
+)
+    });
+  };
+  laboratoriya_ishlari = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.laboratoriya_ishlari.map((item) => {
+      return item.file !== null?(document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+    });
+  };
+  amaliy_dars_materiallar = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.amaliy_dars_materiallar.map((item) => {
+      return item.file !== null ? (document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">link</button></a>
+</div>
+</div>`)
+    });
+  };
 
 
 
+
+  hisob_grafik_ishlar = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.hisob_grafik_ishlar.map((item) => {
+      return item.file !== null? (document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+      
+    });
+  };
+  kursishlari = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.kurs_ishlari.map((item) => {
+
+      return item.file !== null? (document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+    });
+  };
+  topshiriqlar = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.topshiriqlar.map((item) => {
+
+
+      return item.file !== null? (document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+    });
+  };
+  qoshimcha_hujjatlar = () => {
+    document.querySelector("#funksiya").innerHTML = " ";
+
+    this.state.malumot.qoshimcha_hujjatlar.map((item) => {
+
+      return item.file !== null? (document.querySelector(
+        "#funksiya"
+      ).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+  ${item.name}
+  <hr/>
+  <div style="margin:auto;text-align:center">${item.date_added}</div>
+  <a download href="${host1}${item.file}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">yuklab olish</button></a>
+</div>
+</div>`):(document.querySelector(
+  "#funksiya"
+).innerHTML += ` <div style="width:100%;margin:40px ; display:flex; justify-content:center;align-items:center;">
+<div style="width: 80%;
+border-radius: 20px;margin:auto;text-align:center;
+padding: 20px;
+background-color: rgba(0, 255, 255, 0.603);
+display: block;">
+${item.name}
+<hr/>
+<div style="margin:auto;text-align:center">${item.date_added}</div>
+<a href="${item.link}" style="margin:auto;textAlign:center;width:100%;display:flex;justify-content:center;margin-top:30px; text-decoration: none;"><button style="background-color:#0D6EFD;color:#ffffff;font-weight:500;padding:10px;border:none;border-radius:10px;">Link</button></a>
+</div>
+</div>`)
+    });
+  };
+
+  handleChange1 = (event) => {
+    this.setState({ comment: event.target.value });
+  };
+
+  handleSubmit1 = (event) => {
+    event.preventDefault();
+
+    const user = {
+      rate: this.state.star,
+      comment: this.state.comment,
+    };
+    window.location.reload();
+
+    axios
+      .post(`https://admin.credence.uz/uz/comments/`, user)
+      .then((res) => {
+        if(res.data && res){
+
+          alert("yuborildi")
+        }else {
+          alert("yuborilmadi")
+        }
+      })
+      .catch((err) => {
+        alert("Xato")
+      });
+  };
 
   getBaholash = () => {
     saveBaholash()
       .then((res) => {
         this.setState({
           umumiyIzoh: res.data.comments,
-          natija:res.data
+          natija: res.data,
         });
       })
       .catch((res) => {
@@ -425,7 +552,7 @@ handleSubmit1 = event => {
   }
   render() {
     const { uzLang, enLang } = this.props;
-    const { umumiyIzoh, natija} = this.state;
+    const { umumiyIzoh, natija } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -461,6 +588,7 @@ handleSubmit1 = event => {
               </div>
             </div>
           </header>
+<<<<<<< Updated upstream
 
 
 
@@ -473,6 +601,9 @@ handleSubmit1 = event => {
 
 
           <nav className="navbar navbar-expand-lg navbar-light bg-success sticky-top">
+=======
+          <nav className="navbar mystiky navbar-expand-lg navbar-light bg-success">
+>>>>>>> Stashed changes
             <div className="container py-2">
               <ul className="navbar-nav">
                 <li id={style1.navitem} className="nav-item">
@@ -579,7 +710,7 @@ handleSubmit1 = event => {
                   </li>
                   <li id={style1.navitem} className="nav-item">
                     <div className={style1.dropdown}>
-                      <button className={style1.dropbtn}>
+                      <button href="/fanlar" className={style1.dropbtn}>
                         {uzLang ? "Fanlar" : enLang ? "Subjects" : "Предметы"}
                       </button>
                       <div
@@ -590,35 +721,61 @@ handleSubmit1 = event => {
                           return (
                             <div>
                               <Link
-                                href="/fanlar"
                                 to="/fanlar"
                                 onClick={() => this.getMalumot(item.id)}
                               >
                                 <NavDropdown
-                                 className={style1.dropbtn}
+                                  className={style1.dropbtn}
                                   id="nav-dropdown-button-drop-end"
                                   key="end"
                                   drop="end"
                                   title={item.name}
                                 >
+<<<<<<< Updated upstream
                                   <NavDropdown.Item 
                                    onClick={this.syllabuys}
                                   href="/fanlar">
                                   syllabuys
+=======
+                                  <NavDropdown.Item
+                                    onClick={this.syllabus}
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Syllabuys"
+                                      : enLang
+                                      ? "syllabuys"
+                                      : "Учебные программы"}
+>>>>>>> Stashed changes
                                   </NavDropdown.Item>
                                   <NavDropdown.Item
                                     onClick={this.mustaqil_talim}
                                     href="/fanlar"
                                   >
-                                    mustaqil talim
+                                    {uzLang
+                                      ? "Mustaqil talim"
+                                      : enLang
+                                      ? "Independent learning"
+                                      : "Самостоятельное обучение"}
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item 
+                                  <NavDropdown.Item
                                     onClick={this.maruza_va_prezentatsiyalar}
+<<<<<<< Updated upstream
                                   href="/fanlar">
                                     maruza va prezentatsiyalar
+=======
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Maruza va prezentatsiyalar"
+                                      : enLang
+                                      ? "Lectures and presentations"
+                                      : "Лекции и презентации"}
+>>>>>>> Stashed changes
                                   </NavDropdown.Item>
-                                  <NavDropdown.Item  
+                                  <NavDropdown.Item
                                     onClick={this.laboratoriya_ishlari}
+<<<<<<< Updated upstream
                                   href="/fanlar">
                                     laboratoriya ishlari
                                   </NavDropdown.Item>
@@ -636,6 +793,65 @@ handleSubmit1 = event => {
                                   </NavDropdown.Item>
                                   <NavDropdown.Item  onClick={this.qoshimcha_hujjatlar} href="/fanlar">
                                   qoshimcha hujjatlar
+=======
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? " Laboratoriya ishlari"
+                                      : enLang
+                                      ? "Laboratory work"
+                                      : "лабораторная работа"}
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item
+                                    onClick={this.amaliy_dars_materiallar}
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Amaliy dars materiallari"
+                                      : enLang
+                                      ? "Practical course materials"
+                                      : "Практические материалы курса"}
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item
+                                    onClick={this.hisob_grafik_ishlar}
+                                    href="#action/3.3"
+                                  >
+                                    {uzLang
+                                      ? "Hisob grafik ishlar"
+                                      : enLang
+                                      ? "Account graphics work"
+                                      : "Работа с графикой аккаунта"}
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item
+                                    onClick={this.kursishlari}
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Kurs ishi"
+                                      : enLang
+                                      ? "Coursework"
+                                      : "Курсовая работа"}
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item
+                                    onClick={this.topshiriqlar}
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Topshiriqlar"
+                                      : enLang
+                                      ? "Assignments"
+                                      : "Задания"}
+                                  </NavDropdown.Item>
+                                  <NavDropdown.Item
+                                    onClick={() => this.qoshimcha_hujjatlar}
+                                    href="/fanlar"
+                                  >
+                                    {uzLang
+                                      ? "Talabalar uchun"
+                                      : enLang
+                                      ? "For students"
+                                      : "Для студентов"}
+>>>>>>> Stashed changes
                                   </NavDropdown.Item>
                                 </NavDropdown>
                               </Link>
@@ -700,11 +916,13 @@ handleSubmit1 = event => {
                     <h1 className={style1.text}>
                       <div className="my-2" id="demo11">
                         {this.state.nomi}
+                        
                       </div>
                     </h1>
 
                     <div className="container">
                       <div className="row">
+<<<<<<< Updated upstream
                         <div className="col-lg-8" id="accordionExample">
             
 
@@ -713,6 +931,72 @@ handleSubmit1 = event => {
             
              
              
+=======
+                        <div className="col-lg-8" id="funksiya">
+                          <p className={s.izoh}>
+                            <i className="fas fa-book"></i>{" "}
+                            {uzLang
+                              ? "Kitoblar ro'yxati"
+                              : enLang
+                              ? " List of Books"
+                              : "Список книг"}
+                          </p>
+                          <Table
+                            striped
+                            bordered
+                            hover
+                            size="lg"
+                            text="center"
+                            className="tables"
+                            id={s.tables}
+                          >
+                            <thead>
+                              <tr>
+                                <th>
+                                  {uzLang
+                                    ? "MUQOVASI"
+                                    : enLang
+                                    ? "COVER"
+                                    : "ОБЛОЖКА"}
+                                </th>
+                                <th className="w-75">
+                                  {uzLang
+                                    ? "TO`LIQ NOMI"
+                                    : enLang
+                                    ? "FULL TITLE"
+                                    : "ПОЛЬНОЕ НАЗВАНИЕ"}
+                                </th>
+                                <th>
+                                  {uzLang
+                                    ? "HAVOLA"
+                                    : enLang
+                                    ? "LINK"
+                                    : "ССЫЛКА"}
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>{this.state.postData}</tbody>
+                          </Table>
+                          <div
+                            className="d-flex w-100% paginates"
+                            id={s.paginates}
+                          >
+                            <ReactPaginate
+                              previousLabel={"prev"}
+                              nextLabel={"next"}
+                              breakLabel={"..."}
+                              breakClassName={"break-me"}
+                              pageCount={this.state.pageCount}
+                              marginPagesDisplayed={1}
+                              pageRangeDisplayed={3}
+                              onPageChange={this.handlePageClick}
+                              containerClassName={"pagination"}
+                              subContainerClassName={"pages pagination"}
+                              activeClassName={"active"}
+                              className={s.pagination}
+                            />
+                          </div>
+>>>>>>> Stashed changes
                         </div>
                         <div className="col-lg-4">
                           <Elon />
@@ -726,13 +1010,21 @@ handleSubmit1 = event => {
                             data-bs-toggle="modal"
                             data-bs-target="#exampleModal"
                           >
-                            {uzLang?"Izoh qoldirish":enLang?"Leave a comment":"Оставить комментарий"}
+                            {uzLang
+                              ? "Izoh qoldirish"
+                              : enLang
+                              ? "Leave a comment"
+                              : "Оставить комментарий"}
                           </button>
                         </div>
                       </div>
                       <div>
                         <h4 style={{ marginTop: "20px" }}>
-                          {uzLang?"O`qituvchiga qoldirilgan izohlar":enLang?"Comments left to the teacher":"Комментарии оставлены учителю"}
+                          {uzLang
+                            ? "O`qituvchiga qoldirilgan izohlar"
+                            : enLang
+                            ? "Comments left to the teacher"
+                            : "Комментарии оставлены учителю"}
                         </h4>
                         <div style={{ display: "flex" }}>
                           {natija.rating >= 1 ? (
@@ -760,10 +1052,7 @@ handleSubmit1 = event => {
                           ) : (
                             <FaStar style={{ color: "black" }} />
                           )}
-                          <p style={{ marginLeft: "10px" }}>
-                            {natija.rating}
-                            {console.log(natija.rating)}
-                          </p>
+                          <p style={{ marginLeft: "10px" }}>{natija.rating}</p>
                         </div>
                         {umumiyIzoh.map((item, index) => (
                           <div className={style1.card11} key={index}>
@@ -829,6 +1118,13 @@ handleSubmit1 = event => {
                       <div className="modal-dialog">
                         <div className="modal-content">
                           <div className="modal-header">
+                            <h2>
+                              {uzLang
+                                ? "O'qituvchilarni baholash"
+                                : enLang
+                                ? "Teacher evaluation"
+                                : "Оценка учителя"}
+                            </h2>
                             <button
                               type="button"
                               class="btn-close"
@@ -836,46 +1132,48 @@ handleSubmit1 = event => {
                               aria-label="Close"
                             ></button>
                           </div>
-                          <Form className="p-3" >
-                            <div className="mb-3">
-                              Baholash
-                              <div
-                                className={style1.star}
-                                
-                              >
+                          <Form className="p-3">
+                            <div className="">
+                              <p>
+                                {" "}
+                                {uzLang
+                                  ? "Baholash"
+                                  : enLang
+                                  ? "Rating"
+                                  : "Рейтинг"}
+                              </p>
+                              <div className={style1.star}>
                                 <FaStar
                                   id="star1"
                                   onClick={() => this.star1()}
-                                  
                                 />
                                 <FaStar
                                   id="star2"
                                   onClick={() => this.star2()}
-                                  
                                 />
                                 <FaStar
                                   id="star3"
                                   onClick={() => this.star3()}
-                                  
                                 />
                                 <FaStar
                                   id="star4"
                                   onClick={() => this.star4()}
-                                  
                                 />
                                 <FaStar
                                   id="star5"
                                   onClick={() => this.star5()}
-                                  
                                 />{" "}
-                                <p
-                                  style={{ paddingLeft: "10px" }}
-                                >
-                                  {this.state.star} ball
+                                <p style={{ paddingLeft: "10px" }}>
+                                  {this.state.star}{" "}
+                                  {uzLang ? "ball" : enLang ? "ball" : "мяч"}
                                 </p>
                               </div>
                             </div>
-                            <Form.Group controlId="comment" className="mb-3" onSubmit={this.handleSubmit1}>
+                            <Form.Group
+                              controlId="comment"
+                              className=""
+                              onSubmit={this.handleSubmit1}
+                            >
                               <Form.Label>
                                 {uzLang
                                   ? "Shaxsiy fikringizni bildiring."
@@ -884,7 +1182,7 @@ handleSubmit1 = event => {
                                   : "Сообщение"}
                               </Form.Label>
                               <Form.Control
-                              onChange={this.handleChange1}
+                                onChange={this.handleChange1}
                                 as="textarea"
                                 name="comment"
                                 rows={3}
@@ -893,6 +1191,20 @@ handleSubmit1 = event => {
                                 value={this.state.comment}
                               />
                             </Form.Group>
+
+                            <p
+                              style={{
+                                color: "red",
+                                margin: "0px",
+                                marginBottom: "15px",
+                              }}
+                            >
+                              {uzLang
+                                ? "Shaxsiy fikringizni qoldiring"
+                                : enLang
+                                ? "Leave your personal opinion"
+                                : "Оставьте свое личное мнение"}
+                            </p>
                             <Button
                               variant="success"
                               type="submit"

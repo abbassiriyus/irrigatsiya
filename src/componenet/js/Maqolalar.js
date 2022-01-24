@@ -38,7 +38,7 @@ class Maqolalar extends Component {
               <td>
               <a download href={uz?`${host}/articles/`+item.slug+"/download":en?`${hosten}/articles/`+item.slug+"/download":`${hostru}/articles/`+"/"+item.slug+"/download"}>
                   {item.name}
-                  <span className='badge badge-primary mydownload' className={s.mydownload}>download</span>
+                  <span className='badge badge-primary mydownload' id={s.mydownload}>download</span>
                 </a>
               </td>
               <td>

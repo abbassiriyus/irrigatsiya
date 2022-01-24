@@ -8,17 +8,19 @@
 }
 
 #malumot p{
-    font-size: 18px;
+    font-size: 18px !important;
     line-height: 2;
 }
+
 #myrowbg  .card{
     background-color: transparent;
 }
 #myrowbg  .card a,p{
-    font-size: 15px;
+    font-size: 17px;
 }
 #bbbb,#cccc{
     background-color: rgba(255, 255, 255, 0.418);
+    /* background-color: red; */
     border-radius: 20px;
 }
 #messegss{
