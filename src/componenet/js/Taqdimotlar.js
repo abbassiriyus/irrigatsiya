@@ -5,13 +5,13 @@ import { Table } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
 import s from "../css/Homepage.module.css";
 import { connect } from "react-redux";
-import {uzLanguege} from '../redux/Actions/uzLanguege';
-import {ruLanguege} from '../redux/Actions/ruLanguege';
-import {enLanguege} from '../redux/Actions/enLanguege';
+import { uzLanguege } from "../redux/Actions/uzLanguege";
+import { ruLanguege } from "../redux/Actions/ruLanguege";
+import { enLanguege } from "../redux/Actions/enLanguege";
 import { savePresentations } from "../config/tuitor";
-import { host, hosten, hostru } from "../config/host";
+import { host, host1, hosten, hostru } from "../config/host";
 import Elon from "./Elon";
-import aos from 'aos'
+import aos from "aos";
 import axios from "axios";
 class Taqdimotlar extends Component {
   constructor(props) {
@@ -24,22 +24,27 @@ class Taqdimotlar extends Component {
     };
     this.handlePageClick = this.handlePageClick.bind(this);
   }
-  receivedData(uz,en) {
-    savePresentations(uz,en).then((res) => {
+  receivedData(uz, en) {
+    savePresentations(uz, en).then((res) => {
       const data = res.data;
       const slice = data.slice(
         this.state.offset,
         this.state.offset + this.state.perPage
       );
-      const postData = slice.map((item,uz,en) => {
+      const postData = slice.map((item, uz, en) => {
         return item.file != null ? (
           <React.Fragment>
             <tr className="tables">
               <td>{item.count}</td>
               <td>
-              <a download href={uz?`${host}/presentations/`+item.slug+"/download":en?`${hosten}/presentations/`+item.slug+"/download":`${hostru}/presentations/`+"/"+item.slug+"/download"}>
+                <a download href={`${host1}${item.file}`}>
                   {item.name}
-                  <span className='badge badge-primary mydownload'>download</span>
+                  <span
+                    className="badge badge-primary mydownload"
+                    id={s.mydownload}
+                  >
+                    download
+                  </span>
                 </a>
               </td>
               <td>
@@ -55,7 +60,9 @@ class Taqdimotlar extends Component {
                 <a>{item.name}</a>
               </td>
               <td>
-                <a href={item.link} className='links'>{this.uzLang?"Ochish":this.enLang?"View":"Открыть"}</a>
+                <a href={item.link} className="links">
+                  {this.uzLang ? "Ochish" : this.enLang ? "View" : "Открыть"}
+                </a>
               </td>
             </tr>
           </React.Fragment>
@@ -85,19 +92,20 @@ class Taqdimotlar extends Component {
     this.receivedData(this.props.uzLang, this.props.enLang);
   }
   render() {
-    const {uzLang, enLang} = this.props;
+    const { uzLang, enLang } = this.props;
     return (
       <>
-        <AsisentPages />
         <div className="container">
           <div className="row my-5">
-            <div className="col-lg-2">
-              <ProfilPages />
-            </div>
-            <div className="col-lg-7 mycollg7">
-              <p className="izoh">
+            <div className="col-lg-8 mycollg7">
+              <p className={s.izoh}>
                 {" "}
-                <i className="fas fa-file-powerpoint"></i>  {uzLang?"Taqdimotlar ro‘yxati":enLang?"List of Presentations":"Список презентаций"}
+                <i className="fas fa-file-powerpoint"></i>{" "}
+                {uzLang
+                  ? "Taqdimotlar ro‘yxati"
+                  : enLang
+                  ? "List of Presentations"
+                  : "Список презентаций"}
               </p>
               <Table
                 striped
@@ -109,9 +117,15 @@ class Taqdimotlar extends Component {
               >
                 <thead>
                   <tr>
-                  <th>#</th>
-                    <th>{uzLang?"TO‘LIQ NOMI":enLang?"FULL TITLE":"ПОЛЬНОЕ НАЗВАНИЕ"}</th>
-                    <th>{uzLang?"HAVOLA":enLang?"LINK":"ССЫЛКА"}</th>
+                    <th>#</th>
+                    <th>
+                      {uzLang
+                        ? "TO‘LIQ NOMI"
+                        : enLang
+                        ? "FULL TITLE"
+                        : "ПОЛЬНОЕ НАЗВАНИЕ"}
+                    </th>
+                    <th>{uzLang ? "HAVOLA" : enLang ? "LINK" : "ССЫЛКА"}</th>
                   </tr>
                 </thead>
                 <tbody>{this.state.postData}</tbody>
@@ -133,8 +147,8 @@ class Taqdimotlar extends Component {
                 />
               </div>
             </div>
-            <div className="col-lg-3">
-                <Elon/>
+            <div className="col-lg-4">
+              <Elon />
             </div>
           </div>
         </div>
@@ -149,4 +163,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {uzLanguege,  ruLanguege, enLanguege })(Taqdimotlar);
+export default connect(mapStateToProps, { uzLanguege, ruLanguege, enLanguege })(
+  Taqdimotlar
+);

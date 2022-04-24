@@ -4,12 +4,12 @@ import ProfilPages from "./ProfilPages";
 import ReactPaginate from "react-paginate";
 import s from "../css/Homepage.module.css";
 import { connect } from "react-redux";
-import {uzLanguege} from '../redux/Actions/uzLanguege';
-import {ruLanguege} from '../redux/Actions/ruLanguege';
-import {enLanguege} from '../redux/Actions/enLanguege';
+import { uzLanguege } from "../redux/Actions/uzLanguege";
+import { ruLanguege } from "../redux/Actions/ruLanguege";
+import { enLanguege } from "../redux/Actions/enLanguege";
 import axios from "axios";
-import { host,  } from "../config/host";
-import style1 from '../css/Navbar1.module.css'
+import { host } from "../config/host";
+import style1 from "../css/Navbar1.module.css";
 import Elon from "./Elon";
 class Videolar extends Component {
   constructor(props) {
@@ -29,16 +29,26 @@ class Videolar extends Component {
         this.state.offset,
         this.state.offset + this.state.perPage
       );
-      const postData = slice.map((item,uz,en) => {
+      const postData = slice.map((item, uz, en) => {
         return item.file != null ? (
-          <div className={style1.card11} data-aos="zoom-in" data-aos-duration="3000">
+          <div
+            className={style1.card11}
+            data-aos="zoom-in"
+            data-aos-duration="3000"
+          >
             <video controls width="100%">
               <source src={item.file} type="video/mp4"></source>
             </video>
-            <h4 className="text-center mt-2">{item.name==null?" ":item.name}</h4>
+            <h4 className="text-center mt-2">
+              {item.name == null ? " " : item.name}
+            </h4>
           </div>
         ) : (
-          <div className={style1.card11} data-aos="zoom-in" data-aos-duration="3000">
+          <div
+            className={style1.card11}
+            data-aos="zoom-in"
+            data-aos-duration="3000"
+          >
             <iframe
               width="100%"
               height="450"
@@ -48,8 +58,9 @@ class Videolar extends Component {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <h4 className="text-center mt-2">{item.name==null?" ":item.name}</h4>
-
+            <h4 className="text-center mt-2">
+              {item.name == null ? " " : item.name}
+            </h4>
           </div>
         );
       });
@@ -77,20 +88,22 @@ class Videolar extends Component {
     this.receivedData(this.props.uzLang, this.props.enLang);
   }
   render() {
-    const {uzLang, enLang} = this.props;
+    const { uzLang, enLang } = this.props;
     return (
       <>
-        <AsisentPages />
-        <div className="container-fluid">
+        <div className="container">
           <div className="row my-5">
-            <div className="col-lg-2">
-              <ProfilPages />
-            </div>
-            <div className="col-lg-7 overflow-hidden">
-              <p className="izoh">
+            {/* <div className="col-lg-1"></div> */}
+            <div className="col-lg-8 overflow-hidden">
+              <h4 className={s.izoh}>
                 {" "}
-                <i className="fa fa-file-video"></i>  {uzLang?"Videolar ro`yxati":enLang?"List of Videos":"Список видеоуроков"}
-              </p>
+                <i className="fa fa-file-video"></i>{" "}
+                {uzLang
+                  ? "Videolar ro`yxati"
+                  : enLang
+                  ? "List of Videos"
+                  : "Список видеоуроков"}
+              </h4>
               <div>{this.state.postData}</div>
               <div className="d-flex w-100% paginates">
                 <ReactPaginate
@@ -109,8 +122,12 @@ class Videolar extends Component {
                 />
               </div>
             </div>
-            <div className="col-lg-3">
-                <Elon/>
+            <div
+              className="col-lg-4 "
+              data-aos="zoom-in"
+              data-aos-duration="3000"
+            >
+              <Elon />
             </div>
           </div>
         </div>
@@ -125,4 +142,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {uzLanguege,  ruLanguege, enLanguege })(Videolar);
+export default connect(mapStateToProps, { uzLanguege, ruLanguege, enLanguege })(
+  Videolar
+);

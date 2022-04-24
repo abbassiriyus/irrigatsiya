@@ -6,25 +6,29 @@ import style3 from "../css/Asisent.module.css";
 import { uzLanguege } from "../redux/Actions/uzLanguege";
 import { enLanguege } from "../redux/Actions/enLanguege";
 import { ruLanguege } from "../redux/Actions/ruLanguege";
-import kafedraLogo from "./../img/kafedra_logo.png";
+import kafedraLogo from "./../img/bayroquz.jpg";
 class AsisentPages extends Component {
   name = ["Mustafoqulov Alimardon Mamatovich"];
-  nameen = ["Мустафокулов Алимардон Маматович"];
+  nameru = ["Мустафокулов Алимардон Маматович"];
+  nameen = ["Mustafokulov Alimardon Mamatovich"];
   state = {
     userdata: [],
     profiledata: [],
-    name: [],
   };
   getMalumot(uz, en) {
     saveTuitor(uz, en)
       .then((res) => {
+        // console.log(res.data)
         this.setState({
           userdata: res.data,
           profiledata: res.data.user,
         });
       })
-      .catch((res) => {});
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
   componentDidMount() {
     this.getMalumot(this.props.uzLang, this.props.enLang);
   }
@@ -35,42 +39,28 @@ class AsisentPages extends Component {
       <div id={style3.section1} className="section-1">
         <div className="container">
           <div className="row">
-            <div className="col-lg-12 d-flex">
-              <div className="row">
-                <div
-                  className="col-lg-3 col-md-3 d-flex justify-content-center align-items-center"
-                  style={{
-                    boxShadow:
-                      "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px",
-                  }}
-                >
+            <div className="col-lg-12">
+              <div className="row justify-content-between align-items-center">
+                <div className="col-lg-2 col-md-3 d-flex justify-content-center">
                   <img className={style3.imgLogo} src={kafedraLogo} />
                 </div>
                 <div className="col-lg-9 col-md-9">
-                  <p id={style3.asisent} className="asisent my-3">
+                  <h6 id={style3.asisent} className="asisent my-3">
                     {" "}
-                    {userdata.level}
-                  </p>
-                  <p id={style3.myname}>
-                    <Typed
-                      id={style3.typedtext}
-                      className="typed-text text-center"
-                      strings={
-                        uzLang ? this.name : enLang ? this.name : this.nameen
-                      }
-                      typeSpeed={100}
-                      backSpeed={100}
-                    />
-                  </p>
-                  <p className=" my-2">
-                    <a href="#home">
-                      {uzLang ? "Bosh sahifa" : enLang ? "Home" : "Главная"}{" "}
-                      <i className="fa fa-chevron-right mx-2"></i>
-                    </a>{" "}
-                    <p className="d-inline-block myname" id={style3.myname2}>
-                      {profiledata.last_name + " " + profiledata.first_name}
-                    </p>
-                  </p>
+                    Chilonzor Tuman Hokimyat Raxbariyati
+                    {/* {userdata.level} */}
+                  </h6>
+                  {/* <Typed
+                    id={style3.typedtext}
+                    className="typed-text text-center"
+                    style={{ color: "#3365a5", fontSize: "18px" }}
+                    strings={
+                      uzLang ? this.name : enLang ? this.nameen : this.nameru
+                    }
+                    typeSpeed={100}
+                    backSpeed={100}
+                  /> */}
+                  <p></p>
                 </div>
               </div>
             </div>

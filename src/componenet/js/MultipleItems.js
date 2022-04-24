@@ -30,6 +30,7 @@ class MultipleItems extends Component {
     const { fotoLavha } = this.state;
     const { uzLang, enLang } = this.props;
     return (
+      
       <div
         style={{
           margin: "auto",
@@ -40,6 +41,7 @@ class MultipleItems extends Component {
           backgroundColor: "none",
         }}
       >
+        
         <h2 style={{ color: "white", marginBottom: "50px" }}>
           {" "}
           {uzLang
@@ -91,7 +93,12 @@ class MultipleItems extends Component {
               ))}
             </Carousel>
           </div>
+          
         </div>
+        
+      
+      
+      
       </div>
     );
   }

@@ -9,7 +9,7 @@ import {uzLanguege} from '../redux/Actions/uzLanguege';
 import {ruLanguege} from '../redux/Actions/ruLanguege';
 import {enLanguege} from '../redux/Actions/enLanguege';
 import { saveProjects } from "../config/tuitor";
-import { host, hosten, hostru } from "../config/host";
+import { host, host1, hosten, hostru } from "../config/host";
 import Elon from "./Elon";
 class Loyihalar extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Loyihalar extends Component {
             <tr className="tables">
               <td>{item.count}</td>
               <td>
-              <a download href={uz?`${host}/projects/`+item.slug+"/download":en?`${hosten}/projects/`+item.slug+"/download":`${hostru}/projects/`+"/"+item.slug+"/download"}>
+              <a download href={`${host1}${item.file}`}>
                   {item.name}
                   <span className='badge badge-primary mydownload' id={s.mydownload}>download</span>
                 </a>
@@ -86,13 +86,11 @@ class Loyihalar extends Component {
     const {uzLang, enLang} = this.props;
     return (
       <>
-        <AsisentPages />
+        
         <div className="container">
           <div className="row my-5">
-            <div className="col-lg-2">
-              <ProfilPages />
-            </div>
-            <div className="col-lg-7 mycollg7" id={s.mycollg7}>
+            
+            <div className="col-lg-8 mycollg7" id={s.mycollg7}>
               <p className={s.izoh}>
                 {" "}
                 <i className="fa fa-file-archive"></i> {uzLang?"Loyihalar ro`yxati":enLang?"List of Projects":" Спсок проектов"}
@@ -134,7 +132,7 @@ class Loyihalar extends Component {
                 />
               </div>
             </div>
-            <div className="col-lg-3">
+            <div className="col-lg-4">
                 <Elon/>
             </div>
           </div>

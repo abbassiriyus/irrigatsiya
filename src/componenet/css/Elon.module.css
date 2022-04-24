@@ -1,24 +1,48 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap");
 
+#elons {
+  color: red;
+  /* padding-top: 0px; */
+  font-size: 28px;
+  margin-top: 15px;
+  font-family: "DM Sans", sans-serif !important;
+}
 
-#elons{
-    color: red;
-    /* padding-top: 0px; */
-    font-size: 28px;
-    margin-top: 15px;
-    font-family: 'DM Sans', sans-serif !important;
+#elonScrol::-webkit-scrollbar {
+  width: 5px;
+}
 
+/* Track */
+#elonScrol::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
 }
-#elonScrol{
-    height: 100vh;
-    overflow-y: scroll;
+
+/* Handle */
+#elonScrol::-webkit-scrollbar-thumb {
+  background: rgb(11, 156, 103);
+  border-radius: 10px;
 }
-.card, .card-body, .card-title{
-    background-color: transparent;
+
+/* Handle on hover */
+#elonScrol::-webkit-scrollbar-thumb:hover {
+  background: rgb(11, 156, 103);
 }
-#elonScrol h4{
-    text-align: center;
+#elonScrol {
+  height: 100vh;
+  overflow-y: scroll;
+
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.287);
 }
-#elonScrol p{
-    text-align: justify;
+.card,
+.card-body,
+.card-title {
+  background-color: transparent;
+}
+#elonScrol h4 {
+  text-align: center;
+}
+#elonScrol p {
+  text-align: justify;
 }

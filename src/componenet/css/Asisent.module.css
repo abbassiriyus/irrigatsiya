@@ -1,8 +1,8 @@
 #typedtext {
-  color: #3365a5;
+  
 }
 #section1 {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
   border-bottom: 1px solid gainsboro;
 }
 #asisent {
@@ -10,7 +10,7 @@
   margin: 0;
 }
 .imgLogo {
-  /* margin: 20px; */
+  margin: 10px;
   height: 100px;
 }
 #myname {

@@ -7,7 +7,7 @@ import { GetValue } from "./componenet/config/localstorage";
 import Navbar1 from "./componenet/js/Navbar1";
 import "./App.css";
 import { Spinner } from "react-bootstrap";
-
+import Testing from "./componenet/js/Testing";
 class App extends Component {
   state = {
     loader: true,
@@ -23,7 +23,7 @@ class App extends Component {
 
     setInterval(() => {
       this.setState({ loader: false });
-    }, 1000);
+    }, 800);
   }
   render() {
     return (

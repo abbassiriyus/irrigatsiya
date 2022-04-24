@@ -1,15 +1,53 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,500;1,500&display=swap");
 
 body {
   position: relative;
-    background-image: url(./componenet/img/YsWRDA.gif);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    background-position: center;
-    background-attachment: fixed;
-    opacity: 1;
-    font-family: 'DM Sans', sans-serif !important;
+  background-image: url(./componenet/img/YsWRDA.gif);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 1;
+  font-family: "DM Sans", sans-serif !important;
 }
+
+.pdf-container {
+  width: 100%;
+  height: 800px;
+  background-color: #e4e4e4;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-msg {
+  width: 100%;
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+}
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: rgb(11, 156, 103);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: rgb(11, 156, 103);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -18,7 +56,7 @@ html {
   bottom: 20px;
   right: 20px;
 }
-.ReactLoader{
+.ReactLoader {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,6 +91,6 @@ html {
   background-color: #198754;
   color: white;
 }
-.tops:hover i{
+.tops:hover i {
   color: white;
 }

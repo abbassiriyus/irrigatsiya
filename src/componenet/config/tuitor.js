@@ -1,109 +1,118 @@
-import { host,  hosten, hostru, HttpRequest } from "./host";
+import { host, hosten, hostru, HttpRequest } from "./host";
 
-export let saveTuitor = (uz,en) => {
+export let saveTuitor = (uz, en) => {
   let config = {
-    url: uz? `${host}/me/`:en?`${hosten}/me/`:`${hostru}/me/`,
+    url: uz ? `${host}/me/` : en ? `${hosten}/me/` : `${hostru}/me/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 
-export let saveArticles = (uz,en) => {
+export let saveArticles = (uz, en) => {
   let config = {
-    url: uz? `${host}/articles/`:en?`${hosten}/articles/`:`${hostru}/articles/`,
+    url: uz
+      ? `${host}/articles/`
+      : en
+      ? `${hosten}/articles/`
+      : `${hostru}/articles/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 
-export let saveBooks = (uz,en) => {
+export let saveBooks = (uz, en) => {
   let config = {
-    url: uz? `${host}/books/`:en?`${hosten}/books/`:`${hostru}/books/`,
+    url: uz ? `${host}/books/` : en ? `${hosten}/books/` : `${hostru}/books/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
-export let savePresentations= (uz,en) => {
+};
+export let savePresentations = (uz, en) => {
   let config = {
-    url: uz? `${host}/presentations/`:en?`${hosten}/presentations/`:`${hostru}/presentations/`,
+    url: uz
+      ? `${host}/presentations/`
+      : en
+      ? `${hosten}/presentations/`
+      : `${hostru}/presentations/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 
-
-
-export let saveProjects= (uz,en) => {
+export let saveProjects = (uz, en) => {
   let config = {
-    url: uz? `${host}/projects/`:en?`${hosten}/projects/`:`${hostru}/projects/`,
+    url: uz
+      ? `${host}/projects/`
+      : en
+      ? `${hosten}/projects/`
+      : `${hostru}/projects/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 
-export let elons = (uz,en) => {
+export let elons = (uz, en) => {
   let config = {
-    url: uz? `${host}/warnings/`:en?`${hosten}/warnings/`:`${hostru}/warnings/`,
+    url: uz
+      ? `${host}/warnings/`
+      : en
+      ? `${hosten}/warnings/`
+      : `${hostru}/warnings/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 
-
-export let saveMaps = (uz,en) => {
+export let saveMaps = (uz, en) => {
   let config = {
-    url:uz? `${host}/me/addresses/`:
-    en?`${hosten}/me/addresses/`:
-    `${hostru}/me/addresses/`,
+    url: uz
+      ? `${host}/me/addresses/`
+      : en
+      ? `${hosten}/me/addresses/`
+      : `${hostru}/me/addresses/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
 export let saveNumber = () => {
   let config = {
     url: `${host}/me/phones/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
-export let saveFansn = (uz,en) => {
+};
+export let saveFansn = (uz, en) => {
   let config = {
-    url: uz?`${host}/subjects/`:en?`${hosten}/subjects/`:`${hostru}/subjects/`,
+    url: uz
+      ? `${host}/subjects/`
+      : en
+      ? `${hosten}/subjects/`
+      : `${hostru}/subjects/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
-export let saveBaholash=()=>{
-  let config={
+};
+export let saveBaholash = () => {
+  let config = {
     url: `${host}/comments/`,
-    method: 'GET',
-  }
-  return HttpRequest(config);
-}
-
-export let fotosLavha = () => {
-  let config = {
-    url: `${host}/fotos/`,
     method: "GET",
   };
   return HttpRequest(config);
-}
+};
+
+export let fotosLavha = (uz, en) => {
+  let config = {
+    url: uz ? `${host}/fotos/` : en ? `${hosten}/fotos/` : `${hostru}/fotos/`,
+    method: "GET",
+  };
+  return HttpRequest(config);
+};
 
 export let getPosts = (formDataObj) => {
-    let config = {
-      url: `${host}/me/contact/`,
-      method: "POST",
-      data: formDataObj
-    };
-    return HttpRequest(config);
+  let config = {
+    url: `${host}/me/contact/`,
+    method: "POST",
+    data: formDataObj,
   };
-
-  export let getPostsComments = (commentsDataObj) => {
-    let config = {
-      url: `${host}/comments/`,
-      method: "POST",
-      data: commentsDataObj
-    };
-    return HttpRequest(config);
-  };
-  
+  return HttpRequest(config);
+};

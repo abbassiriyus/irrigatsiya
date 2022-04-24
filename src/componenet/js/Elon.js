@@ -37,9 +37,9 @@ class Elon extends Component {
     const { uzLang, enLang } = this.props;
     return (
       <>
-        <div className="card p-2 elonScrol my-5" id={style5.elonScrol}>
+        <div className="card p-2 elonScrol mb-5" id={style5.elonScrol}>
           <h3 className="text-center elons" id={style5.elons}>
-            {uzLang ? "E'lonlar" : enLang ? "Announcements" : "Объявления"}
+            {uzLang ? "Vakansiyalar" : enLang ? "Vacancies" : "Свободные места"}
           </h3>
           {elonFoto.map((item, index) => (
             <div key={index}>
@@ -61,7 +61,7 @@ class Elon extends Component {
                   style={{ cursor: "pointer" }}
                   onClick={this.batafsil}
                 >
-                  {uzLang?"Batafsil":enLang?"Read more":"Читать далее"}
+                  {uzLang ? "Batafsil" : enLang ? "Read more" : "Читать далее"}
                 </a>
               </div>
             </div>

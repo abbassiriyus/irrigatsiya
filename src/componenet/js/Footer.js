@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { saveMaps, saveNumber } from "../config/tuitor";
+import { saveMaps, saveNumber, saveTuitor } from "../config/tuitor";
 import "../css/Footer.css";
 import AOS from "aos";
 import { uzLanguege } from "../redux/Actions/uzLanguege";
@@ -14,12 +14,13 @@ class Footer extends Component {
     number: [],
     number2: [],
     numbers: [],
+    userdata: [],
   };
   getFooter = () => {
     saveMaps(this.props.uzLang, this.props.enLang)
       .then((res) =>
         this.setState({
-          maps: res.data[0],
+          maps: res.data,
         })
       )
       .catch((res) => console.log("kechirasiz"));
@@ -32,13 +33,26 @@ class Footer extends Component {
       )
       .catch((res) => console.log("xato"));
   };
+  getSection = (uz, en) => {
+    saveTuitor(uz, en)
+      .then((res) => {
+        // console.log(res.data);
+        this.setState({
+          userdata: res.data,
+        });
+      })
+      .catch((res) => {});
+  };
   componentDidMount() {
+    this.getSection(this.props.uzLang, this.props.enLang);
+
     this.getFooter();
   }
 
   render() {
     const { maps, numbers } = this.state;
     const { uzLang, enLang } = this.props;
+    const { userdata } = this.state;
     return (
       <footer>
         <div className="container pt-5">
@@ -55,10 +69,10 @@ class Footer extends Component {
               <div className="bottom"></div>
               <p className="my-4 py-2 mb-5">
                 {uzLang
-                  ? "University Profile System axborot tizimi"
+                  ? "© University Profile System axborot tizimi"
                   : enLang
-                  ? "University Profile System information system"
-                  : "Информационная система University Profile System"}
+                  ? "© University Profile System. All rights reserved"
+                  : "© University Profile System. Все права защищены"}
               </p>
             </div>
             <div className="col-lg-4 mycol4">
@@ -101,15 +115,33 @@ class Footer extends Component {
                   {uzLang ? "BOG`LANISH" : enLang ? "OUR CONTACTS" : "КОНТАКТЫ"}
                 </h6>
                 <div className="bottom"></div>
-                <p className="mt-5 ">
-                  <i className="fas  fa-map-marker-alt myicon"></i>
-                  <a href={maps.link} className="maps" target="_blank">
-                    {" "}
-                    {maps.name}
-                  </a>
+                <p className="mt-5 d-flex  align-items-center">
+                  <p>
+                    <i className="fas  fa-map-marker-alt myicon"></i>
+                  </p>
+                  {maps.length ? (
+                    maps.map((item, index) => (
+                      <p className="" key={index}>
+                        <a href={item.link} className="maps" target="_blank">
+                          {" "}
+                          {item.name}
+                        </a>
+                      </p>
+                    ))
+                  ) : (
+                    <p className="">
+                      {uzLang
+                        ? "Joylashuv manzil kiritlmagan"
+                        : enLang
+                        ? "Location address not entered"
+                        : "Адрес местонахождения не введен"}
+                    </p>
+                  )}
                 </p>
-                <p className="d-flex align-items-center">
-                  <i className="fas fa-phone-alt myicon"></i>
+                <p className="d-flex align-items-center ">
+                  <p>
+                    <i className="fas fa-phone-alt myicon"></i>
+                  </p>
 
                   <div>
                     {numbers.map((item, index) => (
@@ -149,11 +181,10 @@ class Footer extends Component {
               </div>
               <div className="col-lg-4 py-3 col-md-6 footericons">
                 <p>
-                  {" "}
-                  <a href="https://t.me/Mustafoali_7">
+                  <a href={`https://t.me/${userdata.telegram}`}>
                     <i className="fab fa-telegram "></i>
                   </a>
-                  <a href="https://www.facebook.com/alimardon.mustafoqulov.1">
+                  <a href={`https://www.facebook.com/${userdata.facebook}`}>
                     <i className="fab fa-facebook"></i>
                   </a>
                 </p>
