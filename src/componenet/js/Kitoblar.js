@@ -105,10 +105,10 @@ class Kitoblar extends Component {
               <p className={s.izoh}>
                 <i className="fas fa-book"></i>{" "}
                 {uzLang
-                  ? "Kitoblar ro'yxati"
+                  ? "Uslubiy ro'yxati"
                   : enLang
-                  ? " List of Books"
-                  : "Список книг"}
+                  ? " List of methodical works"
+                  : "Список методических работ"}
               </p>
 
               <Table

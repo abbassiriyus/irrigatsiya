@@ -11,6 +11,9 @@
 .myprofilImg {
   border-radius: 12px;
 }
+.myprofilImg:hover{
+  transform: scale(1.1);
+}
 #malumot p {
   font-size: 18px !important;
   line-height: 2;
@@ -19,17 +22,32 @@
   /* padding: 18px; */
   border-radius: 12px;
   background-color: transparent;
-  /* border: none; */
+  border: none;
 }
 #col8fi {
-  background-color: rgba(255, 255, 255, 0.418);
+  background-color: #01633A;
+  border-radius: 12px;
+  /* height: 300px; */
+}
+#textlar{
+  color: white;
+}
+#textlar h1{
+  letter-spacing: 5px;
+  font-size: 50px;
+  color: white;
+  margin-bottom: 0px;
+  margin-top: 18px;
+}
+#textlar p{
+  color: white;
 }
 #col8fi img {
   transition: 0.4s linear;
 }
-#col8fi img:hover {
+/* #col8fi img:hover {
   transform: scale(1.1);
-}
+} */
 #myrowbg .card {
   background-color: transparent;
 }
@@ -117,7 +135,25 @@ p {
   #malumot {
     margin-top: 30px;
   }
+
+  #textlar h1{
+    letter-spacing: 5px;
+    font-size: 29px;
+    color: white;
+    margin-bottom: 0px;
+    margin-top: 18px;
+  }
+  #textlar p{
+    color: white;
+  }
 }
+
+
+
+
+
+
+
 .carusel7 {
   overflow: hidden;
 }
@@ -126,10 +162,25 @@ p {
   height: 500px !important;
 }
 .images77 {
-  background: linear-gradient(#9198e5, #64e6ca);
+  background: linear-gradient(#01633A, #318C22);
   /* background: url(https://wallpapercave.com/wp/wp2757874.gif); */
   /* background: linear-gradient(135deg, green 60%, cyan); */
   /* clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); */
+  padding-bottom: 50px;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
 
   z-index: -1;
 }
+
+
+
+.images77 h2{
+  color: white !important;
+}
+
+
+
+
+
+
+

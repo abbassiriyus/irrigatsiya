@@ -6,11 +6,11 @@ import style3 from "../css/Asisent.module.css";
 import { uzLanguege } from "../redux/Actions/uzLanguege";
 import { enLanguege } from "../redux/Actions/enLanguege";
 import { ruLanguege } from "../redux/Actions/ruLanguege";
-import kafedraLogo from "./../img/bayroquz.jpg";
+import kafedraLogo from "./../img/kafedra_logo.png";
 class AsisentPages extends Component {
-  name = ["Mustafoqulov Alimardon Mamatovich"];
-  nameru = ["Мустафокулов Алимардон Маматович"];
-  nameen = ["Mustafokulov Alimardon Mamatovich"];
+  // name = ["Mustafoqulov Alimardon Mamatovich"];
+  // nameru = ["Мустафокулов Алимардон Маматович"];
+  // nameen = ["Mustafokulov Alimardon Mamatovich"];
   state = {
     userdata: [],
     profiledata: [],
@@ -40,15 +40,14 @@ class AsisentPages extends Component {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <div className="row justify-content-between align-items-center">
+              <div className="row justify-content-center align-items-center">
                 <div className="col-lg-2 col-md-3 d-flex justify-content-center">
                   <img className={style3.imgLogo} src={kafedraLogo} />
                 </div>
                 <div className="col-lg-9 col-md-9">
                   <h6 id={style3.asisent} className="asisent my-3">
-                    {" "}
-                    Chilonzor Tuman Hokimyat Raxbariyati
-                    {/* {userdata.level} */}
+                   
+                    {userdata.level}
                   </h6>
                   {/* <Typed
                     id={style3.typedtext}

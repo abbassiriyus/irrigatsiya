@@ -12,7 +12,8 @@ import { enLanguege } from "../redux/Actions/enLanguege";
 import { connect } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import Elon from "./Elon";
-
+import { css } from "@emotion/react";
+import HashLoader from "react-spinners/HashLoader";
 import rasm from "../img/rasm.gif";
 import { host1 } from "../config/host";
 import CaruselPage from "./CaruselPage";
@@ -27,13 +28,22 @@ class Section extends Component {
     profiledata: [],
     count: [],
     count1: [],
+    loader: true,
+    color: "#218C87"
   };
+  override = css`
+  display: block;
+  margin: 0 auto;
+  border-color: aqua;
+`;
   getSection = (uz, en) => {
     saveTuitor(uz, en)
       .then((res) => {
         this.setState({
           userdata: res.data,
           profiledata: res.data.user,
+          loader:false,
+          color:"#5AB9C1"
         });
       })
       .catch((res) => {});
@@ -52,7 +62,7 @@ class Section extends Component {
         });
       })
       .catch((res) => {
-        console.log(res.data);
+        console.log("error");
       });
   };
 
@@ -82,20 +92,26 @@ class Section extends Component {
   };
 
   render() {
-    const { userdata, profiledata, count, count1 } = this.state;
+    const { userdata, profiledata, color,loader } = this.state;
     const { uzLang, enLang } = this.props;
     return (
       <>
-        <div className="" style={{ overflowX: "hidden" }}>
+        <div>
+          {loader?<div className="my-5" style={{width:"100%",height:"600px"}}><div className="sweet-loading">
+      {/* <button onClick={() => setLoading(!loading)}>Toggle Loader</button>
+      <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" /> */}
+
+      <HashLoader color={color} loading={loader} css={this.override} size={100} />
+    </div></div>:<div> <div className="" style={{ overflowX: "hidden" }}>
           <div className="container">
             <div className="row my-5">
               <div className="col-lg-12">
-                <div class="card mb-3 " id={style2.profil}>
+                <div class="card" id={style2.profil}>
                   <div
-                    class="row g-0 py-4 justify-content-center "
+                    class="row "
                     id={style2.col8fi}
                   >
-                    <div class="col-lg-4 col-md-4 ">
+                    <div class="col-lg-4 p-0 col-md-4 col-sm-12">
                       <div
                         className="card"
                         style={{
@@ -105,33 +121,33 @@ class Section extends Component {
                       >
                         <div
                           className="card-header p-0 d-flex justify-content-center"
-                          style={{ border: "0px" }}
+                          style={{ border: "0px",overflow:"hidden" }}
                         >
                           <img
-                            width="90%"
-                            height="350px"
-                            // src={`${host1}` + userdata.avatar}
-                            src={hodimlar}
+                            width="100%"
+                            height="300px"
+                            src={`${host1}` + userdata.avatar}
+                            // src={hodimlar}
                             className={style2.myprofilImg}
                             alt="profil images"
                           />
                         </div>
 
-                        <div class="card-body mt-4 w-100 text-center"></div>
+                        
                       </div>
                     </div>
-                    <div class="col-lg-7  col-md-8">
-                      <div className="mt-5 py-3 text-center">
-                        <h3 class=" text-center">
-                          {/* {profiledata.last_name} {profiledata.first_name} */}
-                          Shavkat Mavlyanov
-                        </h3>
-                        <p className="text-center py-3">
+                    <div class="col-lg-8  col-md-8 col-sm-12">
+                      <div className=" text-center" id={style2.textlar}>
+                        <h1 class=" text-center">
+                          {profiledata.last_name} {profiledata.first_name}
+                          
+                        </h1>
+                        <p className="text-center">
                           <i>{userdata.bio}</i>
                         </p>
                         <Link
                           to="/biografy"
-                          className="btn btn-primary text-center"
+                          className="btn btn-primary text-center mb-5"
                         >
                           {uzLang
                             ? "Ma'lumotnoma"
@@ -142,57 +158,7 @@ class Section extends Component {
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="row g-0 py-4 justify-content-center "
-                    id={style2.col8fi}
-                  >
-                    <div class="col-lg-4 col-md-4 ">
-                      <div
-                        className="card"
-                        style={{
-                          border: "0px",
-                          backgroundColor: "transparent",
-                        }}
-                      >
-                        <div
-                          className="card-header p-0 d-flex justify-content-center"
-                          style={{ border: "0px" }}
-                        >
-                          <img
-                            width="90%"
-                            height="350px"
-                            // src={`${host1}` + userdata.avatar}
-                            src={hodimlar}
-                            className={style2.myprofilImg}
-                            alt="profil images"
-                          />
-                        </div>
-
-                        <div class="card-body mt-4 w-100 text-center"></div>
-                      </div>
-                    </div>
-                    <div class="col-lg-7  col-md-8">
-                      <div className="mt-5 py-3 text-center">
-                        <h3 class=" text-center">
-                          {/* {profiledata.last_name} {profiledata.first_name} */}
-                          Shavkat Mavlyanov
-                        </h3>
-                        <p className="text-center py-3">
-                          <i>{userdata.bio}</i>
-                        </p>
-                        <Link
-                          to="/biografy"
-                          className="btn btn-primary text-center"
-                        >
-                          {uzLang
-                            ? "Ma'lumotnoma"
-                            : enLang
-                            ? "CV"
-                            : "Объективка"}
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -318,16 +284,12 @@ class Section extends Component {
 
         <div className="container">
           <div className="row my-3">
-            <div className="col-lg-4">
+            <div className="col-lg-2">
               {/* <LineCharts /> */}
               {/* <PieCharts />{" "} */}
             </div>
             <div className="col-lg-8">
-              <LineCharts />
-            </div>
-            <div className="col-lg-12 my-5">
-              <p>Kitoblar soni: {count.length}</p>
-              <p>Maqolalar soni: {count1.length}</p>
+              {/* <LineCharts /> */}
             </div>
           </div>
         </div>
@@ -444,6 +406,8 @@ class Section extends Component {
               </div>
             </div>
           </div>
+        </div></div>}
+       
         </div>
       </>
     );

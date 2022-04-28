@@ -27,17 +27,6 @@ export let saveBooks = (uz, en) => {
   };
   return HttpRequest(config);
 };
-export let savePresentations = (uz, en) => {
-  let config = {
-    url: uz
-      ? `${host}/presentations/`
-      : en
-      ? `${hosten}/presentations/`
-      : `${hostru}/presentations/`,
-    method: "GET",
-  };
-  return HttpRequest(config);
-};
 
 export let saveProjects = (uz, en) => {
   let config = {
@@ -50,6 +39,14 @@ export let saveProjects = (uz, en) => {
   };
   return HttpRequest(config);
 };
+
+export let saveDiploms=(uz,en)=>{
+  let config={
+    url:uz?`${host}/diploms/`:en?`${hosten}/diploms/`:`${hostru}/diploms/`,
+    method:"GET",
+  };
+  return HttpRequest(config)
+}
 
 export let elons = (uz, en) => {
   let config = {

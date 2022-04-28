@@ -6,17 +6,16 @@ import { ruLanguege } from "../redux/Actions/ruLanguege";
 import { connect } from "react-redux";
 import { host, host1, hosten } from "../config/host";
 import axios from "axios";
-import { saveBooks } from "../config/tuitor";
 import { FaStar } from "react-icons/fa";
 import style1 from "../css/Navbar1.module.css";
 import Elon from "./Elon";
 import Footer from "./Footer";
 import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "../img/photo_2022-04-12_21-33-38.jpg";
+import logo from "../img/logo.png";
 import Section from "../js/Section";
 import Kitoblar from "../js/Kitoblar";
 import Loyihalar from "./Loyihalar";
-import Taqdimotlar from "./Taqdimotlar";
+
 import Videolar from "./Videolar";
 import Maqolalar from "./Maqolalar";
 import { Button, Form, NavDropdown, Table } from "react-bootstrap";
@@ -26,6 +25,9 @@ import s from "../css/Homepage.module.css";
 import AsisentPages from "./AsisentPages";
 import Testing from "./Testing";
 import Pdfdocs from "./Pdfdocs";
+import Diplomlar from "./Diplomlar";
+
+
 
 class Navbar1 extends Component {
   state = {
@@ -488,25 +490,25 @@ ${item.name}
           <header>
             <div className="container">
               <div className="row py-2 justify-content-between">
-                <div className="col-lg-8 col-md-6 col-sm-6">
+                <div className="col-lg-6 col-md-6 col-sm-6">
                   <a href="http://staff.tiiame.uz/" className={style1.linkLogo}>
                     <div className="d-flex w-100 align-items-center">
-                      {/* <div className="logo">
+                      <div className="logo">
                         <img height="70px" src={logo} alt="logo" />
-                      </div> */}
+                      </div>
                       <div className={style1.logoh6}>
-                        <h5>
+                        <h6>
                           {uzLang
-                            ? "Toshkent Shahar Chilonzor Tuman Hokimyati"
+                            ? "“ TOSHKENT IRRIGATSIYA VA QISHLOQ XO'JALIGINI MEXANIZATSIYALASH MUHANDISLARI INSTITUTI ” MILLIY TADQIQOT UNIVERSITETI"
                             : enLang
-                            ? "Tashkent City Chilanzar District Hokimiyat"
-                            : "Хокимият Чиланзарского района города Ташкента"}
-                        </h5>
+                            ? "“TASHKENT INSTITUTE OF IRRIGATION AND AGRICULTURAL MECHANIZATION ENGINEERS” NATIONAL RESEARCH UNIVERSITY"
+                            : "НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ «ТАШКЕНТСКИЙ ИНСТИТУТ ИНЖЕНЕРОВ ИРРИГАЦИИ И МЕХАНИЗАЦИИ СЕЛЬСКОГО ХОЗЯЙСТВА»"}
+                        </h6>
                       </div>
                     </div>
                   </a>
                 </div>
-                <div className="col-lg-4 col-md-6 col-sm-6 d-flex justify-content-end align-items-center">
+                <div className="col-lg-6 col-md-6 col-sm-6 d-flex justify-content-end align-items-center">
                   <div>
                     <a href={`${host}/admin/`} className={style1.kirish}>
                       <i className="fa fa-user"></i>
@@ -517,9 +519,13 @@ ${item.name}
               </div>
             </div>
           </header>
+          <section className={style1.chiziqYellow}></section>
 
-          {/* <section className={style1.chiziqYellow}></section> */}
-          <nav className="navbar mystiky navbar-expand-lg navbar-light bg-success">
+          <div>
+            <AsisentPages />
+          </div>
+          <section className={style1.chiziqYellow}></section>
+          <nav className="navbar mystiky navbar-expand-lg navbar-light">
             <div className="container py-2">
               <ul className="navbar-nav">
                 <li id={style1.navitem} className="nav-item">
@@ -569,38 +575,38 @@ ${item.name}
                 id="navbarTogglerDemo02"
               >
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li id={style1.navitem} className="nav-item">
+                  {/* <li id={style1.navitem} className="nav-item">
                     <Link
-                      to="/Maqolalar"
+                      to="/cv"
                       id={style1.navlink}
                       className="nav-link"
                       aria-current="page"
                     >
-                      {uzLang ? "Yangiliklar" : enLang ? "News" : "Новости"}
+                      {uzLang ? "CV" : enLang ? "CV" : "CV"}
                     </Link>
-                  </li>
+                  </li> */}
                   <li id={style1.navitem} className="nav-item">
                     <Link
-                      to="/Kitoblar"
+                      to="/ilmiyishlar"
                       id={style1.navlink}
                       className="nav-link"
                       aria-current="page"
                     >
                       {uzLang
-                        ? "Hujjatlar"
+                        ? "Ilmiy ishlar"
                         : enLang
-                        ? "Documents"
-                        : "документы"}
+                        ? "Research"
+                        : "Наурные"}
                     </Link>
                   </li>
                   <li id={style1.navitem} className="nav-item">
                     <Link
-                      to="/taqdimotlar"
+                      to="/uslubiyishlar"
                       id={style1.navlink}
                       className="nav-link"
                       aria-current="page"
                     >
-                      {uzLang ? "Murojatlar" : enLang ? "Appeals" : "Обращения"}
+                      {uzLang ? "Uslubiy ishlar" : enLang ? "Teaching resources" : "Методическая работа"}
                     </Link>
                   </li>
                   <li id={style1.navitem} className="nav-item">
@@ -611,10 +617,10 @@ ${item.name}
                       aria-current="page"
                     >
                       {uzLang
-                        ? "E'lonlar"
+                        ? "Loyihalar"
                         : enLang
-                        ? "Announcements"
-                        : "Объявления"}
+                        ? "Projects"
+                        : "Проекты"}
                     </Link>
                   </li>
 
@@ -630,9 +636,9 @@ ${item.name}
                   </li>
                   <li id={style1.navitem} className="nav-item">
                     <div className={style1.dropdown}>
-                      {/* <button href="/fanlar" className={style1.dropbtn}>
+                      <button href="/fanlar" className={style1.dropbtn}>
                         {uzLang ? "Fanlar" : enLang ? "Subjects" : "Предметы"}
-                      </button> */}
+                      </button>
                       <div
                         id={style1.dropdowncontent}
                         className="dropdown-content fanlar"
@@ -775,12 +781,12 @@ ${item.name}
                   </li>
                   <li id={style1.navitem} className="nav-item">
                     <Link
-                      to="/test"
+                      to="/diplomlar"
                       id={style1.navlink}
                       className="nav-link"
                       aria-current="page"
                     >
-                      {uzLang ? "Takliflar" : enLang ? "offer" : "Предложения"}
+                      {uzLang ? "Diplomlar" : enLang ? "Diplomlar" : "Дипломы"}
                     </Link>
                   </li>
                   <li id={style1.navitem} className="nav-item">
@@ -816,18 +822,17 @@ ${item.name}
             </div>
           </nav>
           <section className={style1.chiziqYellow}></section>
-          <div>
-            <AsisentPages />
-          </div>
+         
           <Routes>
             <Route exact path="/" element={<Section />} />
-            <Route path="/Maqolalar" element={<Maqolalar />} />
-            <Route path="/Kitoblar" element={<Kitoblar />} />
-            <Route path="/taqdimotlar" element={<Taqdimotlar />} />
+            <Route path="/ilmiyishlar" element={<Maqolalar />} />
+            <Route path="/uslubiyishlar" element={<Kitoblar />} />
             <Route path="/loyihalar" element={<Loyihalar />} />
             <Route path="/videolar" element={<Videolar />} />
-            <Route path="/biografy" element={<Pdfdocs />} />
-            <Route path="/test" element={<Testing />} />
+            {/* <Route path="/biografy" element={<Pdfdocs />} /> */}
+           <Route path="/diplomlar" element={<Diplomlar/>}/>
+           
+            
 
             <Route
               path="/fanlar"

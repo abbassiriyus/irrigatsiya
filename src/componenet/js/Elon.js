@@ -39,7 +39,7 @@ class Elon extends Component {
       <>
         <div className="card p-2 elonScrol mb-5" id={style5.elonScrol}>
           <h3 className="text-center elons" id={style5.elons}>
-            {uzLang ? "Vakansiyalar" : enLang ? "Vacancies" : "Свободные места"}
+            {uzLang ? "E'lonlar" : enLang ? "Announcements" : "Объявления"}
           </h3>
           {elonFoto.map((item, index) => (
             <div key={index}>

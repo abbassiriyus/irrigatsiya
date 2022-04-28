@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4c4ee7c6.chunk.css",
+    "main.js": "/static/js/main.68739eaf.chunk.js",
+    "main.js.map": "/static/js/main.68739eaf.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.efe97c25.chunk.css": "/static/css/2.efe97c25.chunk.css",
+    "static/js/2.fcc15666.chunk.js": "/static/js/2.fcc15666.chunk.js",
+    "static/js/2.fcc15666.chunk.js.map": "/static/js/2.fcc15666.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.e74ca010496307a350c008c4eb1f4e8e.js": "/precache-manifest.e74ca010496307a350c008c4eb1f4e8e.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.efe97c25.chunk.css.map": "/static/css/2.efe97c25.chunk.css.map",
+    "static/css/main.4c4ee7c6.chunk.css.map": "/static/css/main.4c4ee7c6.chunk.css.map",
+    "static/media/App.css": "/static/media/YsWRDA.104502fa.gif",
+    "static/media/all.min.css": "/static/media/fa-solid-900.cdfec5cf.woff",
+    "static/media/fotolarchilonzor.jpg": "/static/media/fotolarchilonzor.4c4f0c5c.jpg",
+    "static/media/hokim.jpg": "/static/media/hokim.12c5ba08.jpg",
+    "static/media/kafedra_logo.png": "/static/media/kafedra_logo.cdab7229.png",
+    "static/media/logo.png": "/static/media/logo.e4babda9.png",
+    "static/media/rasm.gif": "/static/media/rasm.a9c88a80.gif",
+    "static/media/slick-theme.css": "/static/media/slick.f97e3bbf.svg",
+    "static/media/Navbar1.module.css": "/static/media/subject-imgs.257919d2.jpg"
+  }
+}

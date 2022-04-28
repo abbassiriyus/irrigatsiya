@@ -24,6 +24,7 @@ const CaruselPage = (props) => {
       .then((responsive) => {
         setAlbum(responsive.data);
         setLoader(false);
+       
       })
       .catch((responsive) => {
         console.log("Error");
@@ -86,8 +87,8 @@ const CaruselPage = (props) => {
       <div className="container my-5">
         <div className="row justify-content-center">
           <div className="col-lg-10 " id="chilonzor">
-            <img src={chilonzorimg} width='100%'/>
-            {/* <Slider {...settings}>
+           
+            <Slider {...settings}>
               {album.map((item, index) => (
                 <div key={index} className="card m-0">
                   <div className="card-body">
@@ -106,7 +107,7 @@ const CaruselPage = (props) => {
                   </div>
                 </div>
               ))}
-            </Slider> */}
+            </Slider>
           </div>
         </div>
       </div>

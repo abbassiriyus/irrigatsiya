@@ -106,10 +106,10 @@ class Maqolalar extends Component {
                 {" "}
                 <i className="fas fa-newspaper"></i>{" "}
                 {uzLang
-                  ? "Maqolalar ro‘yxati"
+                  ? "Ilmiy ishlar ro'yxati"
                   : enLang
-                  ? "List of Articles"
-                  : " Список статей"}
+                  ? "List of scientific works"
+                  : " Список научных работ"}
               </p>
               <Table
                 striped
